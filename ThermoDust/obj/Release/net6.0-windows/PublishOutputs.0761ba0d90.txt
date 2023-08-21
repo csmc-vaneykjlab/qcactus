@@ -1,0 +1,13 @@
+C:\Users\DwightZ\source\repos\ThermoDust\ThermoDust\bin\Release\net6.0-windows\publish\images\cactusready.png
+C:\Users\DwightZ\source\repos\ThermoDust\ThermoDust\bin\Release\net6.0-windows\publish\ThermoDust.exe
+C:\Users\DwightZ\source\repos\ThermoDust\ThermoDust\bin\Release\net6.0-windows\publish\ThermoDust.dll
+C:\Users\DwightZ\source\repos\ThermoDust\ThermoDust\bin\Release\net6.0-windows\publish\ThermoDust.deps.json
+C:\Users\DwightZ\source\repos\ThermoDust\ThermoDust\bin\Release\net6.0-windows\publish\ThermoDust.runtimeconfig.json
+C:\Users\DwightZ\source\repos\ThermoDust\ThermoDust\bin\Release\net6.0-windows\publish\ThermoDust.pdb
+C:\Users\DwightZ\source\repos\ThermoDust\ThermoDust\bin\Release\net6.0-windows\publish\ScottPlot.dll
+C:\Users\DwightZ\source\repos\ThermoDust\ThermoDust\bin\Release\net6.0-windows\publish\OpenMcdf.dll
+C:\Users\DwightZ\source\repos\ThermoDust\ThermoDust\bin\Release\net6.0-windows\publish\ThermoFisher.CommonCore.BackgroundSubtraction.dll
+C:\Users\DwightZ\source\repos\ThermoDust\ThermoDust\bin\Release\net6.0-windows\publish\ThermoFisher.CommonCore.Data.dll
+C:\Users\DwightZ\source\repos\ThermoDust\ThermoDust\bin\Release\net6.0-windows\publish\ThermoFisher.CommonCore.MassPrecisionEstimator.dll
+C:\Users\DwightZ\source\repos\ThermoDust\ThermoDust\bin\Release\net6.0-windows\publish\ThermoFisher.CommonCore.RawFileReader.dll
+C:\Users\DwightZ\source\repos\ThermoDust\ThermoDust\bin\Release\net6.0-windows\publish\OpenMcdf.Extensions.dll

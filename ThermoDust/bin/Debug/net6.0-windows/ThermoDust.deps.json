@@ -1,0 +1,169 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "ThermoDust/1.0.0": {
+        "dependencies": {
+          "ScottPlot": "4.1.60",
+          "OpenMcdf": "2.2.1.2",
+          "ThermoFisher.CommonCore.BackgroundSubtraction": "5.0.0.71",
+          "ThermoFisher.CommonCore.Data": "5.0.0.71",
+          "ThermoFisher.CommonCore.MassPrecisionEstimator": "5.0.0.71",
+          "ThermoFisher.CommonCore.RawFileReader": "5.0.0.71"
+        },
+        "runtime": {
+          "ThermoDust.dll": {}
+        }
+      },
+      "Microsoft.NETCore.Platforms/3.1.4": {},
+      "Microsoft.Win32.SystemEvents/4.7.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.1.4"
+        }
+      },
+      "ScottPlot/4.1.60": {
+        "dependencies": {
+          "System.Drawing.Common": "4.7.2",
+          "System.Numerics.Vectors": "4.5.0"
+        },
+        "runtime": {
+          "lib/net6.0/ScottPlot.dll": {
+            "assemblyVersion": "4.1.60.0",
+            "fileVersion": "4.1.60.0"
+          }
+        }
+      },
+      "System.Drawing.Common/4.7.2": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.1.4",
+          "Microsoft.Win32.SystemEvents": "4.7.0"
+        }
+      },
+      "System.Numerics.Vectors/4.5.0": {},
+      "OpenMcdf/2.2.1.2": {
+        "runtime": {
+          "OpenMcdf.dll": {
+            "assemblyVersion": "2.2.1.2",
+            "fileVersion": "2.2.1.3"
+          }
+        }
+      },
+      "ThermoFisher.CommonCore.BackgroundSubtraction/5.0.0.71": {
+        "runtime": {
+          "ThermoFisher.CommonCore.BackgroundSubtraction.dll": {
+            "assemblyVersion": "5.0.0.71",
+            "fileVersion": "5.0.0.71"
+          }
+        }
+      },
+      "ThermoFisher.CommonCore.Data/5.0.0.71": {
+        "runtime": {
+          "ThermoFisher.CommonCore.Data.dll": {
+            "assemblyVersion": "5.0.0.71",
+            "fileVersion": "5.0.0.71"
+          }
+        }
+      },
+      "ThermoFisher.CommonCore.MassPrecisionEstimator/5.0.0.71": {
+        "runtime": {
+          "ThermoFisher.CommonCore.MassPrecisionEstimator.dll": {
+            "assemblyVersion": "5.0.0.71",
+            "fileVersion": "5.0.0.71"
+          }
+        }
+      },
+      "ThermoFisher.CommonCore.RawFileReader/5.0.0.71": {
+        "runtime": {
+          "ThermoFisher.CommonCore.RawFileReader.dll": {
+            "assemblyVersion": "5.0.0.71",
+            "fileVersion": "5.0.0.71"
+          }
+        }
+      },
+      "OpenMcdf.Extensions/2.1.6.28924": {
+        "runtime": {
+          "OpenMcdf.Extensions.dll": {
+            "assemblyVersion": "2.1.6.28924",
+            "fileVersion": "2.2.1.3"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ThermoDust/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.NETCore.Platforms/3.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9/y05/CuxE+j184Nr4KihhB9KcUkvGojmD4JV4Vt/mHhVZR+eOCD5WCM+CXye9K0OFMsaPXbN+IcaIpjgBGZmg==",
+      "path": "microsoft.netcore.platforms/3.1.4",
+      "hashPath": "microsoft.netcore.platforms.3.1.4.nupkg.sha512"
+    },
+    "Microsoft.Win32.SystemEvents/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mtVirZr++rq+XCDITMUdnETD59XoeMxSpLRIII7JRI6Yj0LEDiO1pPn0ktlnIj12Ix8bfvQqQDMMIF9wC98oCA==",
+      "path": "microsoft.win32.systemevents/4.7.0",
+      "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
+    },
+    "ScottPlot/4.1.60": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BRV/xEXQ9QQISvZ5tIMBN1VnvTwQcsXOwbq6kqE8zKbA7iyapdzdc7U9aM5g9pLZPi75FtWFAGICazugjbcY0g==",
+      "path": "scottplot/4.1.60",
+      "hashPath": "scottplot.4.1.60.nupkg.sha512"
+    },
+    "System.Drawing.Common/4.7.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-I2y4KBK3VCvU/WqE2xv7NjQ67maXHttkFSHYKgU2evrG9Yqh0oFjfORXt5hZTk+BVjdyFo2h0/YQZsca33BGmg==",
+      "path": "system.drawing.common/4.7.2",
+      "hashPath": "system.drawing.common.4.7.2.nupkg.sha512"
+    },
+    "System.Numerics.Vectors/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QQTlPTl06J/iiDbJCiepZ4H//BVraReU4O4EoRw1U02H5TLUIT7xn3GnDp9AXPSlJUDyFs4uWjWafNX6WrAojQ==",
+      "path": "system.numerics.vectors/4.5.0",
+      "hashPath": "system.numerics.vectors.4.5.0.nupkg.sha512"
+    },
+    "OpenMcdf/2.2.1.2": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ThermoFisher.CommonCore.BackgroundSubtraction/5.0.0.71": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ThermoFisher.CommonCore.Data/5.0.0.71": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ThermoFisher.CommonCore.MassPrecisionEstimator/5.0.0.71": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ThermoFisher.CommonCore.RawFileReader/5.0.0.71": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "OpenMcdf.Extensions/2.1.6.28924": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

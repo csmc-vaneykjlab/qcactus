@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "bJY/aMPpbSWPs0wSIDvjydYZvFIH61zSQ+g3Z4i7ydqM27GvpIUai/HisEMSmSZmTud8mGyk0+xcLDRSWtmolg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\DwightZ\\source\\repos\\ThermoDust\\ThermoDust\\ThermoDust.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\DwightZ\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.4\\microsoft.netcore.platforms.3.1.4.nupkg.sha512",
+    "C:\\Users\\DwightZ\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\DwightZ\\.nuget\\packages\\scottplot\\4.1.60\\scottplot.4.1.60.nupkg.sha512",
+    "C:\\Users\\DwightZ\\.nuget\\packages\\system.drawing.common\\4.7.2\\system.drawing.common.4.7.2.nupkg.sha512",
+    "C:\\Users\\DwightZ\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\DwightZ\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x86\\6.0.6\\microsoft.netcore.app.runtime.win-x86.6.0.6.nupkg.sha512",
+    "C:\\Users\\DwightZ\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\6.0.6\\microsoft.windowsdesktop.app.runtime.win-x86.6.0.6.nupkg.sha512",
+    "C:\\Users\\DwightZ\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\6.0.6\\microsoft.aspnetcore.app.runtime.win-x86.6.0.6.nupkg.sha512",
+    "C:\\Users\\DwightZ\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\6.0.6\\microsoft.netcore.app.crossgen2.win-x64.6.0.6.nupkg.sha512"
+  ],
+  "logs": []
+}

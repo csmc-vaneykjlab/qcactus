@@ -1,0 +1,372 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "HtmlRenderer.Core/1.5.0.6": {
+        "runtime": {
+          "lib/net45/HtmlRenderer.dll": {
+            "assemblyVersion": "1.5.0.6",
+            "fileVersion": "1.5.0.6"
+          }
+        }
+      },
+      "HtmlRenderer.PdfSharp/1.5.0.6": {
+        "dependencies": {
+          "HtmlRenderer.Core": "1.5.0.6",
+          "PDFsharp": "1.32.3057"
+        },
+        "runtime": {
+          "lib/net45/HtmlRenderer.PdfSharp.dll": {
+            "assemblyVersion": "1.5.0.6",
+            "fileVersion": "1.5.0.6"
+          }
+        }
+      },
+      "Microsoft.Data.Sqlite.Core/7.0.5": {
+        "dependencies": {
+          "SQLitePCLRaw.core": "2.1.4"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.Data.Sqlite.dll": {
+            "assemblyVersion": "7.0.5.0",
+            "fileVersion": "7.0.523.16503"
+          }
+        }
+      },
+      "Microsoft.NETCore.Platforms/3.1.4": {},
+      "Microsoft.Win32.SystemEvents/4.7.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.1.4"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll": {
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp3.0/Microsoft.Win32.SystemEvents.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
+      "PDFsharp/1.32.3057": {
+        "runtime": {
+          "lib/net20/PdfSharp.Charting.dll": {
+            "assemblyVersion": "1.32.3057.0",
+            "fileVersion": "1.32.3057.0"
+          },
+          "lib/net20/PdfSharp.dll": {
+            "assemblyVersion": "1.32.3057.0",
+            "fileVersion": "1.32.3057.0"
+          }
+        },
+        "resources": {
+          "lib/net20/de/PdfSharp.Charting.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net20/de/PdfSharp.resources.dll": {
+            "locale": "de"
+          }
+        }
+      },
+      "PdfSharpCore/1.3.56": {
+        "dependencies": {
+          "SharpZipLib": "1.3.3",
+          "SixLabors.Fonts": "1.0.0-beta17",
+          "SixLabors.ImageSharp": "1.0.4"
+        },
+        "runtime": {
+          "lib/net6.0/PdfSharpCore.dll": {
+            "assemblyVersion": "1.3.56.0",
+            "fileVersion": "1.3.56.0"
+          }
+        },
+        "resources": {
+          "lib/net6.0/de/PdfSharpCore.resources.dll": {
+            "locale": "de"
+          }
+        }
+      },
+      "ScottPlot/4.1.63": {
+        "dependencies": {
+          "System.Drawing.Common": "4.7.2",
+          "System.Numerics.Vectors": "4.5.0"
+        },
+        "runtime": {
+          "lib/net6.0/ScottPlot.dll": {
+            "assemblyVersion": "4.1.63.0",
+            "fileVersion": "4.1.63.0"
+          }
+        }
+      },
+      "ScottPlot.WinForms/4.1.63": {
+        "dependencies": {
+          "ScottPlot": "4.1.63"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/ScottPlot.WinForms.dll": {
+            "assemblyVersion": "4.1.63.0",
+            "fileVersion": "4.1.63.0"
+          }
+        }
+      },
+      "SharpZipLib/1.3.3": {
+        "runtime": {
+          "lib/netstandard2.1/ICSharpCode.SharpZipLib.dll": {
+            "assemblyVersion": "1.3.3.11",
+            "fileVersion": "1.3.3.11"
+          }
+        }
+      },
+      "SixLabors.Fonts/1.0.0-beta17": {
+        "runtime": {
+          "lib/netcoreapp3.1/SixLabors.Fonts.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SixLabors.ImageSharp/1.0.4": {
+        "runtime": {
+          "lib/netcoreapp3.1/SixLabors.ImageSharp.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.4.0"
+          }
+        }
+      },
+      "SQLite/3.13.0": {
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libsqlite3.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libsqlite3.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win7-x64/native/sqlite3.dll": {
+            "rid": "win7-x64",
+            "assetType": "native",
+            "fileVersion": "3.13.0.0"
+          },
+          "runtimes/win7-x86/native/sqlite3.dll": {
+            "rid": "win7-x86",
+            "assetType": "native",
+            "fileVersion": "3.13.0.0"
+          }
+        }
+      },
+      "SQLitePCLRaw.core/2.1.4": {
+        "dependencies": {
+          "System.Memory": "4.5.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SQLitePCLRaw.core.dll": {
+            "assemblyVersion": "2.1.4.1835",
+            "fileVersion": "2.1.4.1835"
+          }
+        }
+      },
+      "System.Drawing.Common/4.7.2": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.1.4",
+          "Microsoft.Win32.SystemEvents": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Drawing.Common.dll": {
+            "assemblyVersion": "4.0.0.2",
+            "fileVersion": "4.6.29719.1"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netcoreapp3.0/System.Drawing.Common.dll": {
+            "rid": "unix",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.2.2",
+            "fileVersion": "4.700.21.6905"
+          },
+          "runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.2.2",
+            "fileVersion": "4.700.21.6905"
+          }
+        }
+      },
+      "System.Memory/4.5.3": {},
+      "System.Numerics.Vectors/4.5.0": {},
+      "System.Runtime.CompilerServices.Unsafe/6.0.0": {
+        "runtime": {
+          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.52210"
+          }
+        }
+      },
+      "System.Text.Encoding.CodePages/7.0.0": {
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/System.Text.Encoding.CodePages.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.0.22.51805"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net6.0/System.Text.Encoding.CodePages.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.0.22.51805"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "HtmlRenderer.Core/1.5.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/WPVhzNmILIOJ1vtoiQXP7y7MJirCpHn/jqFw38wU0vv1XXbSpR2bTStmaiI2Pb2JLjnPMrVGR/7T7zKlAaaHw==",
+      "path": "htmlrenderer.core/1.5.0.6",
+      "hashPath": "htmlrenderer.core.1.5.0.6.nupkg.sha512"
+    },
+    "HtmlRenderer.PdfSharp/1.5.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uk2lzFa/0zQSk8im2CX8ROXlqy8YAJUG28b5/G8wa0YNdO6+04bEl3iZCaThkcyNWnnIsHCn5hWR3vZjc6JhmA==",
+      "path": "htmlrenderer.pdfsharp/1.5.0.6",
+      "hashPath": "htmlrenderer.pdfsharp.1.5.0.6.nupkg.sha512"
+    },
+    "Microsoft.Data.Sqlite.Core/7.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FTerRmQPqHrCrnoUzhBu+E+1DNGwyrAMLqHkAqOOOu5pGfyMOj8qQUBxI/gDtWtG11p49UxSfWmBzRNlwZqfUg==",
+      "path": "microsoft.data.sqlite.core/7.0.5",
+      "hashPath": "microsoft.data.sqlite.core.7.0.5.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Platforms/3.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9/y05/CuxE+j184Nr4KihhB9KcUkvGojmD4JV4Vt/mHhVZR+eOCD5WCM+CXye9K0OFMsaPXbN+IcaIpjgBGZmg==",
+      "path": "microsoft.netcore.platforms/3.1.4",
+      "hashPath": "microsoft.netcore.platforms.3.1.4.nupkg.sha512"
+    },
+    "Microsoft.Win32.SystemEvents/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mtVirZr++rq+XCDITMUdnETD59XoeMxSpLRIII7JRI6Yj0LEDiO1pPn0ktlnIj12Ix8bfvQqQDMMIF9wC98oCA==",
+      "path": "microsoft.win32.systemevents/4.7.0",
+      "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
+    },
+    "PDFsharp/1.32.3057": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-M8w6e4R+jA1j3ddPCY6jNnb8RG21ZgCr+ENapwaH5NPzNl600f1wOcCPY2hEO+jb0aCGjcMHrWk/K+PC1cw0PQ==",
+      "path": "pdfsharp/1.32.3057",
+      "hashPath": "pdfsharp.1.32.3057.nupkg.sha512"
+    },
+    "PdfSharpCore/1.3.56": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-722Df/czLsmO3sqXLJ/rRg19a5NzkFds3WX6UuMGJ9KTDfthnV87uuGII+E9kp7iJx5XjdaiHv5Ky+jZmRxeIQ==",
+      "path": "pdfsharpcore/1.3.56",
+      "hashPath": "pdfsharpcore.1.3.56.nupkg.sha512"
+    },
+    "ScottPlot/4.1.63": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ph9TskhXC31lySsZLDRzo5g1ujG1GnMDM/xPFeU6ntP2c58WEvf0nP7Pe5hAT7E5t7kwM0SAn0rsAqK6++PP5w==",
+      "path": "scottplot/4.1.63",
+      "hashPath": "scottplot.4.1.63.nupkg.sha512"
+    },
+    "ScottPlot.WinForms/4.1.63": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ldi7Rs9UpchKIFG+hLQ4WWUaSMEHxFZWIZt+fbJ0Tgmy9YMWIqBwbnqZt+2Mq3a4ZawZof0T3nMj6WMYwCK6ew==",
+      "path": "scottplot.winforms/4.1.63",
+      "hashPath": "scottplot.winforms.4.1.63.nupkg.sha512"
+    },
+    "SharpZipLib/1.3.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-N8+hwhsKZm25tDJfWpBSW7EGhH/R7EMuiX+KJ4C4u+fCWVc1lJ5zg1u3S1RPPVYgTqhx/C3hxrqUpi6RwK5+Tg==",
+      "path": "sharpziplib/1.3.3",
+      "hashPath": "sharpziplib.1.3.3.nupkg.sha512"
+    },
+    "SixLabors.Fonts/1.0.0-beta17": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qubgVovAoSR7vyv9tJ68gSzRIPWz7HBjTM9rwAaLjpcJ6T50arnX+GHAZcC0r2mVagyRMknCNda3DGoe8StUUQ==",
+      "path": "sixlabors.fonts/1.0.0-beta17",
+      "hashPath": "sixlabors.fonts.1.0.0-beta17.nupkg.sha512"
+    },
+    "SixLabors.ImageSharp/1.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-H2rPiEr2ddBOltOuqRYhpLBAsQXDAhbzMMhhuksnBG2oefup1MXMchALe7yYkKJksNbtxbZHKeM6dn/68I75qw==",
+      "path": "sixlabors.imagesharp/1.0.4",
+      "hashPath": "sixlabors.imagesharp.1.0.4.nupkg.sha512"
+    },
+    "SQLite/3.13.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MJfRiz2p6aMVOxrxGMdVzhpzI0oxTgZSwC8eVuOpV8L7yYaFUu8q/OFYwv9P0/aZ/pdEu24O6gma6wZJMTun9A==",
+      "path": "sqlite/3.13.0",
+      "hashPath": "sqlite.3.13.0.nupkg.sha512"
+    },
+    "SQLitePCLRaw.core/2.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-inBjvSHo9UDKneGNzfUfDjK08JzlcIhn1+SP5Y3m6cgXpCxXKCJDy6Mka7LpgSV+UZmKSnC8rTwB0SQ0xKu5pA==",
+      "path": "sqlitepclraw.core/2.1.4",
+      "hashPath": "sqlitepclraw.core.2.1.4.nupkg.sha512"
+    },
+    "System.Drawing.Common/4.7.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-I2y4KBK3VCvU/WqE2xv7NjQ67maXHttkFSHYKgU2evrG9Yqh0oFjfORXt5hZTk+BVjdyFo2h0/YQZsca33BGmg==",
+      "path": "system.drawing.common/4.7.2",
+      "hashPath": "system.drawing.common.4.7.2.nupkg.sha512"
+    },
+    "System.Memory/4.5.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA==",
+      "path": "system.memory/4.5.3",
+      "hashPath": "system.memory.4.5.3.nupkg.sha512"
+    },
+    "System.Numerics.Vectors/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QQTlPTl06J/iiDbJCiepZ4H//BVraReU4O4EoRw1U02H5TLUIT7xn3GnDp9AXPSlJUDyFs4uWjWafNX6WrAojQ==",
+      "path": "system.numerics.vectors/4.5.0",
+      "hashPath": "system.numerics.vectors.4.5.0.nupkg.sha512"
+    },
+    "System.Runtime.CompilerServices.Unsafe/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
+      "path": "system.runtime.compilerservices.unsafe/6.0.0",
+      "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    },
+    "System.Text.Encoding.CodePages/7.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LSyCblMpvOe0N3E+8e0skHcrIhgV2huaNcjUUEa8hRtgEAm36aGkRoC8Jxlb6Ra6GSfF29ftduPNywin8XolzQ==",
+      "path": "system.text.encoding.codepages/7.0.0",
+      "hashPath": "system.text.encoding.codepages.7.0.0.nupkg.sha512"
+    }
+  }
+}

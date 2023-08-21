@@ -1,0 +1,3 @@
+.FASTA FILE (FOR SEARCHING)
+MSFragger.jar
+ext directory (which contains MSFragger libraries / raw data readers)

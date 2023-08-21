@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlRenderer.Core" Version="1.5.0.6" />
+    <PackageReference Include="HtmlRenderer.PdfSharp" Version="1.5.0.6" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="7.0.5" />
+    <PackageReference Include="PdfSharpCore" Version="1.3.56" />
+    <PackageReference Include="ScottPlot" Version="4.1.63" />
+    <PackageReference Include="ScottPlot.WinForms" Version="4.1.63" />
+    <PackageReference Include="SQLite" Version="3.13.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="OpenMcdf">
+      <HintPath>..\DLLS\OpenMcdf.dll</HintPath>
+    </Reference>
+    <Reference Include="ThermoFisher.CommonCore.BackgroundSubtraction">
+      <HintPath>..\DLLS\ThermoFisher.CommonCore.BackgroundSubtraction.dll</HintPath>
+    </Reference>
+    <Reference Include="ThermoFisher.CommonCore.Data">
+      <HintPath>..\DLLS\ThermoFisher.CommonCore.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="ThermoFisher.CommonCore.MassPrecisionEstimator">
+      <HintPath>..\DLLS\ThermoFisher.CommonCore.MassPrecisionEstimator.dll</HintPath>
+    </Reference>
+    <Reference Include="ThermoFisher.CommonCore.RawFileReader">
+      <HintPath>..\DLLS\ThermoFisher.CommonCore.RawFileReader.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="images\cactusready.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>
