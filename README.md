@@ -15,3 +15,6 @@ The current version focuses on providing a wrapper of sorts for the following wo
 2] Provide ID-free metrics based on raw files w/ plots
 3] Provide ID-based summary of raw files via MSFragger w/plots
 4] Export an example PDF report of derived QC information
+
+## License
+Please note the software falls under the MIT license but the QCactus name is trademark of Cedars-Sinai and the cactus logo is copyright of Zachary Dwight (both requiring permission for use).
