@@ -9,7 +9,7 @@ This application is written in C# and intended to run as a Windows Desktop Appli
   - Visual C++ Redistributable
   - Visual Studio 2023
  
-## Current Version
+## Features
 The current version focuses on providing a wrapper of sorts for the following workflow:
 - Import and check raw files for integrity
 - Provide ID-free metrics based on raw files w/ plots
@@ -18,3 +18,10 @@ The current version focuses on providing a wrapper of sorts for the following wo
 
 ## License
 Please note the software falls under the MIT license but the QCactus name is trademark of Cedars-Sinai and the cactus logo is copyright of Zachary Dwight (both requiring permission for use).
+
+## About Us
+Cedars-Sinai Precision Biomarker Laboratories (PBL) provides complete proteomics solutions across biomarker discovery, validation and CAP/CLIA-certified laboratory testing capabilities.  Our customized workflows allow for the quick translation from protein discovery to clinically validated targeted panels.
+
+https://www.cs-pbl.com/
+
+
