@@ -17,7 +17,7 @@ The current version focuses on providing a wrapper of sorts for the following wo
 - Export an example PDF report of derived QC information
 
 ## License
-This software falls under the MIT license.  The 'QCactus' name is trademark of Cedars-Sinai and the cactus logo is copyright of Zachary Dwight (both requiring permission for use).
+This software falls under the MIT license.  The 'QCactus' name is trademark of Cedars-Sinai and the cactus logo is copyright of Zachary L. Dwight.
 
 ## About Us
 Cedars-Sinai Precision Biomarker Laboratories (PBL) provides complete proteomics solutions across biomarker discovery, validation and CAP/CLIA-certified laboratory testing capabilities.  Our customized workflows allow for the quick translation from protein discovery to clinically validated targeted panels.
