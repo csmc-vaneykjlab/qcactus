@@ -198,6 +198,7 @@ namespace ThermoDust
         // - - probably should separate some of this out - not really best coding practice
         private void button2_Click(object sender, EventArgs e)
         {
+            statsBox.Text = "Creating inventory of valid files...";
             // File size arrays for types of files 1] blanks 2] real samples 3] hela
             List<double> blankFileSizes = new List<double>();
             List<double> realFileSizes = new List<double>();
@@ -227,8 +228,8 @@ namespace ThermoDust
                 FileInfo[] files = di.GetFiles("*.raw");
 
                 fileList.Items.Clear();
-                blankList.Items.Clear();
-                List<FileInfo> orderedBList = filesToExclude.OrderBy(x => x.LastWriteTime).ToList();
+                blankList.Items.Clear(); 
+                List<FileInfo> orderedBList = filesToExclude.OrderBy(x => getFileTimeStamp(x.Name)).ToList();
                 filesToExclude = orderedBList.ToArray();
                 for (int i = 0; i < filesToExclude.Length; i++)
                 {
@@ -253,8 +254,9 @@ namespace ThermoDust
 
                 }
 
-
-                List<FileInfo> orderedFList = files.OrderBy(x => x.LastWriteTime).ToList();
+                /////////////// FIX HERE FIX HERE !!!
+                //List<FileInfo> orderedFList = files.OrderBy(x => x.LastWriteTime).ToList();
+                List<FileInfo> orderedFList = files.OrderBy(x => getFileTimeStamp(x.Name)).ToList();
                 files = orderedFList.ToArray();
                 for (int i = 0; i < files.Length; i++)
                 {
@@ -275,7 +277,9 @@ namespace ThermoDust
                             fileList.Items.Add(ftxPath + " | " + ftxSize.ToString("0.000") + " MB" + " | " + ftx.LastWriteTime.ToString());
                             realFileSizes.Add(ftxSize);
                             realFileNames.Add(ftxPath);
-                            timestamps.Add(ftx.LastWriteTime.ToString());
+                            string sdate = getFileCreatedDate(ftx.Name);
+                            timestamps.Add(sdate);
+                            //timestamps.Add(ftx.LastWriteTime.ToString());
                             
                         }
                     }
@@ -284,7 +288,7 @@ namespace ThermoDust
                 storeFileSizePlot(blankFileSizes, helaFileSizes, realFileSizes, blankFileNames, helaFileNames, realFileNames, timestamps, btimestamps,htimestamps);
 
                 CreateFileSizePlot(blankFileSizes, helaFileSizes, realFileSizes, blankFileNames, helaFileNames, realFileNames, timestamps, btimestamps, htimestamps);
-                CreateFileListBox(realFileNames);
+                CreateFileListBox(realFileNames, helaFileNames);
                 CreateBPTIC(realFileNames, timestamps);
                 CreateMaxBaseSummary(realFileNames, timestamps);
                 dataloaded = true;
@@ -704,9 +708,14 @@ namespace ThermoDust
         }
 
         //POPULATE SOME ADDITIONAL CHECKED LISTS FOR ADDITIONAL ANALYSIS OPTIONS
-        private void CreateFileListBox(List<string> filenames)
+        private void CreateFileListBox(List<string> filenames, List<string> helafilenames)
         {
-            for (int i = 0; i < filenames.Count; i++)
+            for (int i = 0; i < helafilenames.Count; i++)
+            {
+                checkedListBox2.Items.Add(helafilenames[i], CheckState.Unchecked);
+            }
+
+                for (int i = 0; i < filenames.Count; i++)
             {
                 //FOR TIC ANALYZER WINDOW
                 checkedListBox1.Items.Add(filenames[i], CheckState.Unchecked);
@@ -1184,6 +1193,15 @@ try
                 var filedoc = TheArtOfDev.HtmlRenderer.PdfSharp.PdfGenerator.GeneratePdf(filereport, PageSize.Letter);
                 filedoc.Save("filestats.pdf");
 
+                var idreport = createImageReportText("ids");
+                var idedoc = TheArtOfDev.HtmlRenderer.PdfSharp.PdfGenerator.GeneratePdf(idreport, PageSize.Letter);
+                idedoc.Save("ids.pdf");
+
+                var pepreport = createImageReportText("pepids");
+                var pepdoc = TheArtOfDev.HtmlRenderer.PdfSharp.PdfGenerator.GeneratePdf(pepreport, PageSize.Letter);
+                pepdoc.Save("pepids.pdf");
+
+
                 SaveFileDialog svg = new SaveFileDialog();
                 svg.DefaultExt = "pdf";
                 svg.ShowDialog();
@@ -1193,11 +1211,13 @@ try
                 using (PdfSharp.Pdf.PdfDocument twoA = PdfReader.Open("scan.pdf", PdfDocumentOpenMode.Import))
                 using (PdfSharp.Pdf.PdfDocument twoB = PdfReader.Open("bp.pdf", PdfDocumentOpenMode.Import))
                 using (PdfSharp.Pdf.PdfDocument twoC = PdfReader.Open("tic.pdf", PdfDocumentOpenMode.Import))
+                using (PdfSharp.Pdf.PdfDocument twoD = PdfReader.Open("ids.pdf", PdfDocumentOpenMode.Import))
+                using (PdfSharp.Pdf.PdfDocument twoF = PdfReader.Open("pepids.pdf", PdfDocumentOpenMode.Import))
                 using (PdfSharp.Pdf.PdfDocument three = PdfReader.Open("filestats.pdf", PdfDocumentOpenMode.Import))
                 using (PdfSharp.Pdf.PdfDocument outPdf = new PdfSharp.Pdf.PdfDocument())
                 {
                     CopyPages(one, outPdf);
-                    CopyPages(two, outPdf); CopyPages(twoA, outPdf); CopyPages(twoB, outPdf); CopyPages(twoC, outPdf);
+                    CopyPages(two, outPdf); CopyPages(twoA, outPdf); CopyPages(twoB, outPdf); CopyPages(twoC, outPdf); CopyPages(twoD, outPdf); CopyPages(twoF, outPdf);
                     CopyPages(three, outPdf);
 
                     outPdf.Save(svg.FileName);
@@ -1215,7 +1235,7 @@ try
         // - - GUI
         private void licenseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.MessageBox.Show("Copyright 2023 Zachary L. Dwight \n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and / or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  \n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. \n\nTHE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.");
+            System.Windows.Forms.MessageBox.Show("Copyright 2023 PBL @ Cedars-Sinai Medical Center \n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and / or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  \n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. \n\nTHE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.");
         }
 
         //CLOSE APP
@@ -1262,6 +1282,12 @@ try
             { html += "<img src = 'images/ALLBASEPEAKS.PNG' style='width: 500px;  '/>"; }
             if (imagetype == "tic")
             { html += "<img src = 'images/ALLTICS.PNG' style='width: 500px;  '/>"; }
+
+            if (imagetype == "ids")
+            { html += "<img src = 'images/ALLIDS.PNG' style='width: 500px;  '/>"; }
+
+            if (imagetype == "pepids")
+            { html += "<img src = 'images/ALLPEPIDS.PNG' style='width: 500px;  '/>"; }
 
 
             return html;
@@ -1373,7 +1399,8 @@ try
 
                     // update the GUI to describe the highlighted point
                     idY.Text = pointY.ToString("F");
-                    idFile.Text = idsfiles[pointIndex];
+                    string subfilename = idsfiles[pointIndex];
+                    idFile.Text = "... " + idsfiles[pointIndex].Substring((subfilename.Length-15));
                 }
             }
             catch { }
@@ -1403,7 +1430,8 @@ try
 
                     // update the GUI to describe the highlighted point
                     idPepY.Text = pointY.ToString("F");
-                    idPepFile.Text = idsfiles[pointIndex];
+                    string subfilename = idsfiles[pointIndex];
+                    idPepFile.Text = "... " + idsfiles[pointIndex].Substring((subfilename.Length - 15)); 
                 }
             }
             catch { }
@@ -1507,7 +1535,7 @@ try
                     try
                     {
                         rf.SelectInstrument(Device.MS, 1);
-                        //integrity = true;
+
                     }
                     catch
                     {
@@ -1528,6 +1556,24 @@ try
             return integrity;
         }
 
+        public string getFileCreatedDate(string fname)
+        {
+            var rfpath = Path.Combine(folderListing.Text, fname);
+            IRawDataPlus rf;
+            rf = RawFileReaderFactory.ReadFile(rfpath);
+            string creationdate = rf.CreationDate.ToString();
+            return creationdate;
+        }
+
+        public DateTime getFileTimeStamp(string fname)
+        {
+            var rfpath = Path.Combine(folderListing.Text, fname);
+            IRawDataPlus rf;
+            rf = RawFileReaderFactory.ReadFile(rfpath);
+            DateTime creationdate = rf.CreationDate;
+            return creationdate;
+        }
+
 
         //FRESH SLATE FOR TIC IMAGE IN GUI
         public void cleanImages()
@@ -1543,7 +1589,16 @@ try
         }
 
 
+
         // IDENTIFICATION AND SEARCH VIA MSFRAGGER
+        //DEV
+        public string devfragparams = "C:\\Users\\DwightZ\\Documents\\QCactus_Requirements\\fragger.params";
+        public string devfragcall = "-Xmx6G -jar C:\\Users\\DwightZ\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar";
+        public string devjavalocation = @"C:\Users\DwightZ\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
+        //PRODUCTION ON MARCO
+        public string marcofragparams = "C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\fragger.params";
+        public string marcofragcall = "-Xmx12G -jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar";
+        public string marcojavalocation = @"C:\Users\Exploris_marco\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
 
         private void idButton_Click(object sender, EventArgs e)
         {
@@ -1555,8 +1610,16 @@ try
             List<string> exfiles = new List<string>();
             List<string> fragtimes = new List<string>();
             string msfraggerfiles = "";
-            string msfraggerparams = "C:\\Users\\DwightZ\\Desktop\\QCactus_Pub\\testingvisualstudio\\fragger.params";
-            string msfraggercall = "-Xmx6G -jar C:\\Users\\DwightZ\\Desktop\\QCactus_Pub\\testingvisualstudio\\MSFragger-3.8.jar";
+            string msfraggerparams = devfragparams;
+            string msfraggercall = devfragcall;
+            //DEV ENV
+            //string msfraggerparams = "C:\\Users\\DwightZ\\Documents\\QCactus_Requirements\\fragger.params";
+            //string msfraggercall = "-Xmx6G -jar C:\\Users\\DwightZ\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar";
+
+            //PRODU
+            //string msfraggerparams = "C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\fragger.params";
+            //string msfraggercall = "-Xmx12G -jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar";
+
             string finalcall = "";
             peptide_count.Clear();
             protein_count.Clear();
@@ -1594,10 +1657,16 @@ try
             myProcess.StartInfo.RedirectStandardOutput = true;
             myProcess.StartInfo.CreateNoWindow = false;
             //myProcess.StartInfo.FileName = the location of java.exe
-            myProcess.StartInfo.FileName = @"C:\Users\DwightZ\Desktop\QCactus_Pub\testingvisualstudio\jdk-20.0.2\bin\java.exe";
 
+            //dev
+            //myProcess.StartInfo.FileName = @"C:\Users\DwightZ\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
+            //prod
+            //myProcess.StartInfo.FileName = @"C:\Users\Exploris_marco\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
+            myProcess.StartInfo.FileName = devjavalocation;
 
             myProcess.StartInfo.Arguments = finalcall;
+
+            label21.Text = "Start: " + DateTime.Now.ToString("h: mm tt");
             //myProcess.StartInfo.Arguments = "-Xmx6G -jar C:\\Users\\DwightZ\\Desktop\\QCactus_Pub\\testingvisualstudio\\MSFragger-3.8.jar C:\\Users\\DwightZ\\Desktop\\QCactus_Pub\\testingvisualstudio\\fragger.params C:\\Users\\DwightZ\\Desktop\\QCactus_Pub\\testingvisualstudio\\2023_Sample_432.raw";
             idTextBox.Text += "Start MSFragger...\n";
             myProcess.Start();
@@ -1607,7 +1676,7 @@ try
             myProcess.WaitForExit();
             idTextBox.Text += "\nEnd MSFragger.";
             idTextBox.Text += output;
-
+            label21.Text += " | End: " + DateTime.Now.ToString("h: mm tt");
 
             parsePinFiles(exfiles.ToArray());
             plotIDs(fragtimes);
@@ -1628,7 +1697,7 @@ try
 
 
             }
-            
+
 
 
         }

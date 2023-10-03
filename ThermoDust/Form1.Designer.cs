@@ -94,6 +94,7 @@
             this.TICPlot = new ScottPlot.FormsPlot();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label21 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.idPepFile = new System.Windows.Forms.Label();
@@ -106,15 +107,14 @@
             this.idPlot = new ScottPlot.FormsPlot();
             this.pinSummary = new System.Windows.Forms.RichTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label21 = new System.Windows.Forms.Label();
             this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
             this.idButton = new System.Windows.Forms.Button();
             this.idTextBox = new System.Windows.Forms.RichTextBox();
             this.parsePinBtn = new System.Windows.Forms.Button();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.outBox = new System.Windows.Forms.RichTextBox();
             this.brukerBtn = new System.Windows.Forms.Button();
+            this.outBox = new System.Windows.Forms.RichTextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.licenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -809,6 +809,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label21);
             this.tabPage4.Controls.Add(this.label24);
             this.tabPage4.Controls.Add(this.label25);
             this.tabPage4.Controls.Add(this.idPepFile);
@@ -829,10 +830,19 @@
             this.tabPage4.Text = "IDs";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(485, 13);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(226, 15);
+            this.label21.TabIndex = 2;
+            this.label21.Text = "QCactus utilizes MSFragger for searching.";
+            // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(505, 114);
+            this.label24.Location = new System.Drawing.Point(485, 111);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(31, 15);
             this.label24.TabIndex = 28;
@@ -850,7 +860,7 @@
             // idPepFile
             // 
             this.idPepFile.AutoSize = true;
-            this.idPepFile.Location = new System.Drawing.Point(542, 114);
+            this.idPepFile.Location = new System.Drawing.Point(522, 111);
             this.idPepFile.Name = "idPepFile";
             this.idPepFile.Size = new System.Drawing.Size(32, 15);
             this.idPepFile.TabIndex = 26;
@@ -868,7 +878,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(505, 61);
+            this.label22.Location = new System.Drawing.Point(485, 56);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(31, 15);
             this.label22.TabIndex = 24;
@@ -886,7 +896,7 @@
             // idFile
             // 
             this.idFile.AutoSize = true;
-            this.idFile.Location = new System.Drawing.Point(542, 61);
+            this.idFile.Location = new System.Drawing.Point(522, 56);
             this.idFile.Name = "idFile";
             this.idFile.Size = new System.Drawing.Size(32, 15);
             this.idFile.TabIndex = 22;
@@ -931,7 +941,6 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.label21);
             this.groupBox3.Controls.Add(this.checkedListBox2);
             this.groupBox3.Controls.Add(this.idButton);
             this.groupBox3.Location = new System.Drawing.Point(12, 10);
@@ -941,29 +950,20 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Select Files";
             // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(213, 40);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(226, 15);
-            this.label21.TabIndex = 2;
-            this.label21.Text = "QCactus utilizes MSFragger for searching.";
-            // 
             // checkedListBox2
             // 
             this.checkedListBox2.CheckOnClick = true;
             this.checkedListBox2.FormattingEnabled = true;
             this.checkedListBox2.Location = new System.Drawing.Point(6, 22);
             this.checkedListBox2.Name = "checkedListBox2";
-            this.checkedListBox2.Size = new System.Drawing.Size(190, 94);
+            this.checkedListBox2.Size = new System.Drawing.Size(337, 94);
             this.checkedListBox2.TabIndex = 1;
             // 
             // idButton
             // 
-            this.idButton.Location = new System.Drawing.Point(242, 65);
+            this.idButton.Location = new System.Drawing.Point(349, 22);
             this.idButton.Name = "idButton";
-            this.idButton.Size = new System.Drawing.Size(160, 34);
+            this.idButton.Size = new System.Drawing.Size(90, 94);
             this.idButton.TabIndex = 0;
             this.idButton.Text = "Get Identifications >>";
             this.idButton.UseVisualStyleBackColor = true;
@@ -1003,7 +1003,6 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.parsePinBtn);
-            this.groupBox1.Controls.Add(this.outBox);
             this.groupBox1.Controls.Add(this.panel3);
             this.groupBox1.Controls.Add(this.brukerBtn);
             this.groupBox1.Location = new System.Drawing.Point(9, 104);
@@ -1012,15 +1011,6 @@
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Load Files";
-            // 
-            // outBox
-            // 
-            this.outBox.Location = new System.Drawing.Point(70, 532);
-            this.outBox.Name = "outBox";
-            this.outBox.Size = new System.Drawing.Size(100, 12);
-            this.outBox.TabIndex = 18;
-            this.outBox.Text = "";
-            this.outBox.Visible = false;
             // 
             // brukerBtn
             // 
@@ -1032,6 +1022,15 @@
             this.brukerBtn.UseVisualStyleBackColor = true;
             this.brukerBtn.Visible = false;
             this.brukerBtn.Click += new System.EventHandler(this.brukerBtn_Click);
+            // 
+            // outBox
+            // 
+            this.outBox.Location = new System.Drawing.Point(126, 9);
+            this.outBox.Name = "outBox";
+            this.outBox.Size = new System.Drawing.Size(253, 12);
+            this.outBox.TabIndex = 18;
+            this.outBox.Text = "";
+            this.outBox.Visible = false;
             // 
             // menuStrip1
             // 
@@ -1088,6 +1087,7 @@
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1190, 679);
             this.Controls.Add(this.label20);
+            this.Controls.Add(this.outBox);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tabControl1);
@@ -1095,7 +1095,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "QCactus v2 | Precision Biomarker Labs @ Cedars-Sinai | All Rights Reserved 2023";
+            this.Text = "QCactus v3 | Precision Biomarker Labs @ Cedars-Sinai | All Rights Reserved 2023";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -1116,7 +1116,6 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
