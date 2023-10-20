@@ -300,7 +300,7 @@ namespace ThermoDust
             }
         }
 
-        //CREATE Base Peak PLOTS
+        //CREATE MEDIAN INTENSITY PLOTS
         // - - PLOTTING
         public void CreateBPTIC(List<string> filenames, List<string> timestamps)
         {
@@ -334,7 +334,11 @@ namespace ThermoDust
                 var count = 0;
                 List<double> bs = new List<double>();
                 List<double> ts = new List<double>();
-                
+
+                    //TESTING NEW FUNCTION HERE
+                    //GetBPInformation(rf, firstScanNumber, lastScanNumber);
+                    
+
                     foreach (var scanNumber in Enumerable
                                    .Range(1, lastScanNumber - firstScanNumber))
                     {
@@ -345,19 +349,27 @@ namespace ThermoDust
                             count = count + 1;
 
 
-                            double newTic = Math.Log10(scanStatistics.TIC);
-                            double newBP = Math.Log10(scanStatistics.BasePeakIntensity); 
-                            bs.Add(newBP);
+                            double newTic = Math.Log10(scanStatistics.TIC); //closest
+                            //double newBP = Math.Log10(scanStatistics.BasePeakIntensity);
+                            
+                            //bs.Add(newBP);
+                            //ts.Add(newTic);
+
                             ts.Add(newTic);
 
 
                         }
+                        if (scanFilter.MSOrder == MSOrderType.Ms2)
+                        {
+                            double newTic = Math.Log10(scanStatistics.TIC);
+                            bs.Add(newTic);
+                        }
+                           
 
-
-
-                    }
-                    maxbasepeak = GetMedian(bs.ToArray());
-                    maxtic = GetMedian(ts.ToArray());
+                        }
+                    maxbasepeak = GetMedian(bs.ToArray()); //ACTUALLY MS2
+                    
+                    maxtic = GetMedian(ts.ToArray()); //ACTUALLY MS1
 
                     maxbps.Add(maxbasepeak);
                     maxtics.Add(maxtic);
@@ -369,6 +381,34 @@ namespace ThermoDust
             CreateMAXPlot(maxbps, maxtics, timestamps,filenames);
             storeMedianMS(maxtics,maxbps,filenames);
 
+        }
+
+        public double GetBPInformation(IRawDataPlus rwfile, int startScan, int endScan)
+        {
+            ChromatogramTraceSettings settings = new ChromatogramTraceSettings(TraceType.BasePeak);
+            var d = rwfile.GetChromatogramData(new IChromatogramSettings[] { settings }, startScan, endScan);
+            var trace = ChromatogramSignal.FromChromatogramData(d);
+            double bpmax = 0.0;
+            if (trace[0].Length > 0)
+            {
+                
+                for(int i = 0; i < trace[0].Length; i++)
+                {   
+                    if (trace[0].Intensities[i] > bpmax)
+                    {
+                        bpmax = trace[0].Intensities[i];
+                    }
+                }
+            }
+            //label20.Text = bpmax.ToString();
+            return bpmax;
+        }
+
+        public double GetIntensityInformation(IRawDataPlus rwfile, int startScan, int endScan)
+        {
+            double avgIntensity = 0.0;
+
+            return avgIntensity;
         }
 
         //MEDIAN CALC
@@ -1068,21 +1108,21 @@ try
                 List<double> bs = new List<double>();
                 List<double> ts = new List<double>();
                 
-                    foreach (var scanNumber in Enumerable
-                                   .Range(1, lastScanNumber - firstScanNumber))
-                    {
-                        var scanStatistics = rf.GetScanStatsForScanNumber(scanNumber);
-                        var scanFilter = rf.GetFilterForScanNumber(scanNumber);
-                        if (scanFilter.MSOrder == MSOrderType.Ms)
-                        {
-                            count = count + 1;
-                            double newBP = Math.Log10(scanStatistics.BasePeakIntensity);  
-                            bs.Add(newBP);
-                        }
+                    //foreach (var scanNumber in Enumerable
+                    //               .Range(1, lastScanNumber - firstScanNumber))
+                    //{
+                    //    var scanStatistics = rf.GetScanStatsForScanNumber(scanNumber);
+                    //    var scanFilter = rf.GetFilterForScanNumber(scanNumber);
+                    //    if (scanFilter.MSOrder == MSOrderType.Ms)
+                    //    {
+                    //        count = count + 1;
+                    //        double newBP = Math.Log10(scanStatistics.BasePeakIntensity);  
+                    //        bs.Add(newBP);
+                    //    }
 
-                    }
-                    maxbasepeak = FindMax(bs.ToArray());
-
+                    //}
+                    //maxbasepeak = FindMax(bs.ToArray());
+                    maxbasepeak = GetBPInformation(rf, firstScanNumber, lastScanNumber)/(10e8);
                     maxbps.Add(maxbasepeak);
                     
                     item = item + 1;
@@ -1106,7 +1146,7 @@ try
 
             plt.Title("Base Peak (Max) vs Time");
             plt.XLabel("Time");
-
+            plt.YLabel("BP (E9)");
             double[] bparr = bps.ToArray();
             List<DateTime> dates = sttime.Select(date => DateTime.Parse(date)).ToList();
             double[] xs = dates.Select(x => x.ToOADate()).ToArray();
