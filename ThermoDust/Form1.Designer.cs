@@ -1095,7 +1095,8 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "QCactus v3 | Precision Biomarker Labs @ Cedars-Sinai | All Rights Reserved 2023";
+            this.Text = "QCactus v3.1 | Precision Biomarker Labs @ Cedars-Sinai | All Rights Reserved 2023" +
+    "";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();

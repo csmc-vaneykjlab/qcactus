@@ -69,6 +69,8 @@ namespace ThermoDust
         public List<string> times = new List<string>();
         public List<string> btimes = new List<string>();
         public List<string> htimes = new List<string>();
+        public List<string> fragcombotimes = new List<string>();
+
         public List<string> bpfnames = new List<string>();
         public List<string> msfnames = new List<string>();
 
@@ -285,12 +287,19 @@ namespace ThermoDust
                     }
                 }
 
+                //CHECK IF SAMPLES ARE INCLUDED, SKIP AND NOTIFY USER IF ONLY BLANKS/HELA
+
+
                 storeFileSizePlot(blankFileSizes, helaFileSizes, realFileSizes, blankFileNames, helaFileNames, realFileNames, timestamps, btimestamps,htimestamps);
 
                 CreateFileSizePlot(blankFileSizes, helaFileSizes, realFileSizes, blankFileNames, helaFileNames, realFileNames, timestamps, btimestamps, htimestamps);
                 CreateFileListBox(realFileNames, helaFileNames);
-                CreateBPTIC(realFileNames, timestamps);
-                CreateMaxBaseSummary(realFileNames, timestamps);
+                if (realFileSizes.Count > 1)
+                {
+                    CreateBPTIC(realFileNames, timestamps);
+                    CreateMaxBaseSummary(realFileNames, timestamps);
+                }
+                
                 dataloaded = true;
             }
             // Cancel button was pressed.
@@ -552,32 +561,38 @@ namespace ThermoDust
             double[] realfiles = realsizeslist.ToArray();
             int[] realx = Enumerable.Range(1, realfiles.Count()).ToArray();
             var rlx = realx.Select(x => (double)x).ToArray();
-            var popReal = new ScottPlot.Statistics.Population(realfiles);
 
-
-            var rdev = deviations * popReal.stDev;
-            var rdevplus = popReal.mean + rdev;
-            var rdevminus = popReal.mean - rdev;
-
-            if (comboBox1.SelectedIndex == 3)
+            if (realsizeslist.Count > 1)
             {
-                if (custom_UB_FileSize > 0 && custom_LB_FileSize > 0)
+                var popReal = new ScottPlot.Statistics.Population(realfiles);
+
+
+                var rdev = deviations * popReal.stDev;
+                var rdevplus = popReal.mean + rdev;
+                var rdevminus = popReal.mean - rdev;
+
+                if (comboBox1.SelectedIndex == 3)
                 {
-                    rdevplus = custom_UB_FileSize;
-                    rdevminus = custom_LB_FileSize;
+                    if (custom_UB_FileSize > 0 && custom_LB_FileSize > 0)
+                    {
+                        rdevplus = custom_UB_FileSize;
+                        rdevminus = custom_LB_FileSize;
+                    }
                 }
+
+
+
+
+                List<DateTime> dates = freshtime.Select(date => DateTime.Parse(date)).ToList();
+                double[] xs = dates.Select(x => x.ToOADate()).ToArray();
+                MyScatterPlot = plt.AddScatter(xs, realfiles, Color.Red, label: "Samples");
+
+                plt.AddHorizontalLine(popReal.mean, Color.Red, width: 1, style: LineStyle.Dash);
+                plt.AddHorizontalLine(rdevminus, Color.Red, width: 1, style: LineStyle.Dot);
+                plt.AddHorizontalLine(rdevplus, Color.Red, width: 1, style: LineStyle.Dot);
+
+                calcFileStats(filenames, realfiles, rdevminus, rdevplus, popReal.mean);
             }
-
-
-
-
-            List<DateTime> dates = freshtime.Select(date => DateTime.Parse(date)).ToList();
-            double[] xs = dates.Select(x => x.ToOADate()).ToArray();
-            MyScatterPlot = plt.AddScatter(xs, realfiles, Color.Red, label: "Samples");
-            
-            plt.AddHorizontalLine(popReal.mean, Color.Red, width: 1, style: LineStyle.Dash);
-            plt.AddHorizontalLine(rdevminus, Color.Red, width: 1, style: LineStyle.Dot);
-            plt.AddHorizontalLine(rdevplus, Color.Red, width: 1, style: LineStyle.Dot);
 
             if (blanksizeslist.Count > 1)
                        {
@@ -628,7 +643,7 @@ namespace ThermoDust
             HighlightedPoint.IsVisible = false;
             fileSizePlot.Refresh();
 
-            calcFileStats(filenames, realfiles, rdevminus, rdevplus, popReal.mean);
+            
         }
 
         //CALCULATE File Statistics (ID Free Metrics)
@@ -753,6 +768,8 @@ namespace ThermoDust
             for (int i = 0; i < helafilenames.Count; i++)
             {
                 checkedListBox2.Items.Add(helafilenames[i], CheckState.Unchecked);
+                fragcombotimes.Add(htimes[i]);
+                
             }
 
                 for (int i = 0; i < filenames.Count; i++)
@@ -762,6 +779,7 @@ namespace ThermoDust
 
                 //FOR IDENTIFICATIONS ANALYSIS WINDOW
                 checkedListBox2.Items.Add(filenames[i], CheckState.Unchecked);
+                fragcombotimes.Add(times[i]);
             }
         }
 
@@ -1637,8 +1655,9 @@ try
         public string devjavalocation = @"C:\Users\DwightZ\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
         //PRODUCTION ON MARCO
         public string marcofragparams = "C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\fragger.params";
-        public string marcofragcall = "-Xmx12G -jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar";
+        public string marcofragcall = "-Xmx8G -jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar";
         public string marcojavalocation = @"C:\Users\Exploris_marco\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
+        //public string marcosystemjavalocation = @"C:\Program Files (x86)\Java\jre-1.8\bin\java.exe";
 
         private void idButton_Click(object sender, EventArgs e)
         {
@@ -1652,6 +1671,12 @@ try
             string msfraggerfiles = "";
             string msfraggerparams = devfragparams;
             string msfraggercall = devfragcall;
+            //marcojavalocation = devjavalocation;
+
+            //marco setting
+            msfraggerparams = marcofragparams;
+            msfraggercall = marcofragcall;
+
             //DEV ENV
             //string msfraggerparams = "C:\\Users\\DwightZ\\Documents\\QCactus_Requirements\\fragger.params";
             //string msfraggercall = "-Xmx6G -jar C:\\Users\\DwightZ\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar";
@@ -1668,13 +1693,13 @@ try
             foreach (Object item in checkedListBox2.CheckedItems)
             {
 
-                int itemnum = checkedListBox2.Items.IndexOf(item);
+                int itemnum = checkedListBox2.Items.IndexOf(item); 
                 var rawpath = Path.Combine(folderListing.Text, item.ToString());
                 msfraggerfiles += rawpath.ToString() + " ";
                 exfiles.Add(rawpath.ToString());
-                idTextBox.Text += rawpath.ToString() + "\n";
-                idTextBox.Text += times[itemnum].ToString();
-                fragtimes.Add(times[itemnum].ToString());
+                //idTextBox.Text += rawpath.ToString() + "\n";
+                //idTextBox.Text += times[itemnum].ToString();
+                fragtimes.Add(fragcombotimes[itemnum].ToString());
                 idsfiles.Add(item.ToString());
                 
             }
@@ -1688,7 +1713,12 @@ try
                 finalcall = call;
                 
             }
+            
 
+            //testing note:
+            // INVALID HEAP SIZE java -Xmx6G -jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\fragger.params C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\2023_Sample_432.raw
+            //INVALID HEAP SIZE java -Xmx8G -jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\fragger.params C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\2023_Sample_432.raw
+            //C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\jdk-20.0.2\\bin\\java.exe -Xmx8G -jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\fragger.params C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\2023_Sample_432.raw
 
 
 
@@ -1702,7 +1732,7 @@ try
             //myProcess.StartInfo.FileName = @"C:\Users\DwightZ\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
             //prod
             //myProcess.StartInfo.FileName = @"C:\Users\Exploris_marco\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
-            myProcess.StartInfo.FileName = devjavalocation;
+            myProcess.StartInfo.FileName = marcojavalocation;
 
             myProcess.StartInfo.Arguments = finalcall;
 
