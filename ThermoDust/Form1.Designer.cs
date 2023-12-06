@@ -167,17 +167,18 @@
             this.panel3.Controls.Add(this.button2);
             this.panel3.Location = new System.Drawing.Point(3, 22);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(436, 500);
+            this.panel3.Size = new System.Drawing.Size(440, 529);
             this.panel3.TabIndex = 5;
             // 
             // progressBar1
             // 
             this.progressBar1.BackColor = System.Drawing.SystemColors.Highlight;
             this.progressBar1.ForeColor = System.Drawing.Color.LightGray;
-            this.progressBar1.Location = new System.Drawing.Point(148, 29);
+            this.progressBar1.Location = new System.Drawing.Point(4, 489);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(281, 10);
+            this.progressBar1.Size = new System.Drawing.Size(459, 32);
+            this.progressBar1.Step = 5;
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar1.TabIndex = 10;
             // 
@@ -185,10 +186,10 @@
             // 
             this.tabControl2.Controls.Add(this.tabPage7);
             this.tabControl2.Controls.Add(this.tabPage5);
-            this.tabControl2.Location = new System.Drawing.Point(4, 46);
+            this.tabControl2.Location = new System.Drawing.Point(4, 36);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(426, 451);
+            this.tabControl2.Size = new System.Drawing.Size(440, 453);
             this.tabControl2.TabIndex = 7;
             // 
             // tabPage7
@@ -211,7 +212,7 @@
             this.tabPage7.Controls.Add(this.statsBox);
             this.tabPage7.Location = new System.Drawing.Point(4, 24);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(418, 423);
+            this.tabPage7.Size = new System.Drawing.Size(432, 425);
             this.tabPage7.TabIndex = 2;
             this.tabPage7.Text = "Statistics";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -304,7 +305,7 @@
             // 
             this.button5.Location = new System.Drawing.Point(365, 387);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(47, 23);
+            this.button5.Size = new System.Drawing.Size(56, 23);
             this.button5.TabIndex = 19;
             this.button5.Text = "Set!";
             this.button5.UseVisualStyleBackColor = false;
@@ -353,10 +354,11 @@
             // 
             // statsBox
             // 
+            this.statsBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.statsBox.Font = new System.Drawing.Font("Cascadia Mono", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.statsBox.Location = new System.Drawing.Point(3, 3);
             this.statsBox.Name = "statsBox";
-            this.statsBox.Size = new System.Drawing.Size(412, 326);
+            this.statsBox.Size = new System.Drawing.Size(419, 326);
             this.statsBox.TabIndex = 0;
             this.statsBox.Text = "Please select a folder above...";
             // 
@@ -373,7 +375,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 24);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(418, 423);
+            this.tabPage5.Size = new System.Drawing.Size(432, 425);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Raw File Listing";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -474,6 +476,7 @@
             // folderListing
             // 
             this.folderListing.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.folderListing.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.folderListing.Location = new System.Drawing.Point(148, 7);
             this.folderListing.Name = "folderListing";
             this.folderListing.Size = new System.Drawing.Size(282, 21);
@@ -574,10 +577,10 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Location = new System.Drawing.Point(454, 12);
+            this.tabControl1.Location = new System.Drawing.Point(454, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(731, 640);
+            this.tabControl1.Size = new System.Drawing.Size(735, 655);
             this.tabControl1.TabIndex = 7;
             // 
             // tabPage1
@@ -593,7 +596,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(723, 612);
+            this.tabPage1.Size = new System.Drawing.Size(727, 627);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "File Sizes (MB)";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -653,7 +656,7 @@
             this.tabPage6.Controls.Add(this.scanPlot);
             this.tabPage6.Location = new System.Drawing.Point(4, 24);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(723, 612);
+            this.tabPage6.Size = new System.Drawing.Size(727, 627);
             this.tabPage6.TabIndex = 3;
             this.tabPage6.Text = "Scan Intensity (Median)";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -723,7 +726,7 @@
             this.tabPage3.Controls.Add(this.basePeakPlot);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(723, 612);
+            this.tabPage3.Size = new System.Drawing.Size(727, 627);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Base Peak (Max)";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -780,7 +783,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(723, 612);
+            this.tabPage2.Size = new System.Drawing.Size(727, 627);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "TIC";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -825,7 +828,7 @@
             this.tabPage4.Controls.Add(this.idTextBox);
             this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(723, 612);
+            this.tabPage4.Size = new System.Drawing.Size(727, 627);
             this.tabPage4.TabIndex = 4;
             this.tabPage4.Text = "IDs";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1002,12 +1005,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.groupBox1.Controls.Add(this.parsePinBtn);
             this.groupBox1.Controls.Add(this.panel3);
             this.groupBox1.Controls.Add(this.brukerBtn);
-            this.groupBox1.Location = new System.Drawing.Point(9, 104);
+            this.groupBox1.Location = new System.Drawing.Point(0, 110);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(436, 544);
+            this.groupBox1.Size = new System.Drawing.Size(448, 541);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Load Files";
@@ -1084,7 +1088,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ClientSize = new System.Drawing.Size(1190, 679);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.outBox);
@@ -1093,10 +1097,11 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
+            this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "QCactus v3.1 | Precision Biomarker Labs @ Cedars-Sinai | All Rights Reserved 2023" +
-    "";
+            this.ShowIcon = false;
+            this.Text = "v3.1 | Precision Biomarker Labs @ Cedars-Sinai ";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();

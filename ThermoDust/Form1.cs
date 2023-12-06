@@ -471,8 +471,11 @@ namespace ThermoDust
             var lightred = System.Drawing.ColorTranslator.FromHtml("#ffcccb");
             var lightblue = System.Drawing.ColorTranslator.FromHtml("#ADD8E6");
 
-            ScanScatterPlot = plt.AddScatter(blx, bparr, Color.Red, lineWidth: 1, label: "MS2");
-            ScanScatterPlot2 = plt.AddScatter(rlx, ticarr, Color.Blue, lineWidth: 1, label: "MS1");
+            var ms1cv = GetCV(popReal.stDev, popReal.mean); var ms1label = "MS1" + " (" + Math.Round(ms1cv, 1) + "%CV)";
+            var ms2cv = GetCV(popBlank.stDev, popBlank.mean); var ms2label = "MS2" + " (" + Math.Round(ms2cv, 1) + "%CV)";
+
+            ScanScatterPlot = plt.AddScatter(blx, bparr, Color.Red, lineWidth: 1, label: ms2label);
+            ScanScatterPlot2 = plt.AddScatter(rlx, ticarr, Color.Blue, lineWidth: 1, label: ms1label);
 
             var devs1 = deviations * popBlank.stDev;
             var rdevplus = popBlank.mean + devs1;
@@ -585,6 +588,7 @@ namespace ThermoDust
 
                 List<DateTime> dates = freshtime.Select(date => DateTime.Parse(date)).ToList();
                 double[] xs = dates.Select(x => x.ToOADate()).ToArray();
+                //var rcv = GetCV(popReal.stDev, popReal.mean); var rlabel = "Samples" + " (" + Math.Round(rcv,1) + "%CV)";
                 MyScatterPlot = plt.AddScatter(xs, realfiles, Color.Red, label: "Samples");
 
                 plt.AddHorizontalLine(popReal.mean, Color.Red, width: 1, style: LineStyle.Dash);
@@ -1162,15 +1166,18 @@ try
             var plt = basePeakPlot.Plot;
             plt.Clear();
 
-            plt.Title("Base Peak (Max) vs Time");
-            plt.XLabel("Time");
-            plt.YLabel("BP (E9)");
+        
             double[] bparr = bps.ToArray();
             List<DateTime> dates = sttime.Select(date => DateTime.Parse(date)).ToList();
             double[] xs = dates.Select(x => x.ToOADate()).ToArray();
-            BPScatterPlot = plt.AddScatter(xs, bparr, Color.Red, label: "Samples");
-
             var popStats = new ScottPlot.Statistics.Population(bparr);
+
+            var bpcv = GetCV(popStats.stDev, popStats.mean); var bplabel = "Samples" + " (" + Math.Round(bpcv, 1) + "%CV)";
+            BPScatterPlot = plt.AddScatter(xs, bparr, Color.Red, label: bplabel);
+            var fancy = plt.AddAnnotation(bplabel, Alignment.UpperLeft);
+            fancy.Font.Size = 18;
+            fancy.BackgroundColor = Color.White;
+
             var rdev = deviations * popStats.stDev;
             var rdevplus = popStats.mean + rdev;
             var rdevminus = popStats.mean - rdev;
@@ -1194,7 +1201,9 @@ try
             HighlightedPointBP.MarkerShape = ScottPlot.MarkerShape.openCircle;
             HighlightedPointBP.IsVisible = false;
 
-
+            plt.Title("Base Peak (Max) vs Time");
+            plt.XLabel("Time");
+            plt.YLabel("BP (E9)");
             plt.XAxis.Ticks(true);
             plt.XAxis.TickDensity(0.75);
             plt.XAxis.DateTimeFormat(true);
@@ -1551,6 +1560,11 @@ try
         {
             return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
         }
+
+        private static double GetCV(double stdev, double mean)
+        {
+            return ((stdev / mean) * 100);
+        }
         public void basePeakPlot_MouseMove(object sender, MouseEventArgs e)
         {
             try { 
@@ -1658,6 +1672,11 @@ try
         public string marcofragcall = "-Xmx8G -jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar";
         public string marcojavalocation = @"C:\Users\Exploris_marco\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
         //public string marcosystemjavalocation = @"C:\Program Files (x86)\Java\jre-1.8\bin\java.exe";
+        //PRODUCTION ON Henson
+        //C:\Users\Exploris_Henson\Documents\QCactus_Requirements
+        public string hensonfragparams = "C:\\Users\\Exploris_Henson\\Documents\\QCactus_Requirements\\fragger.params";
+        public string hensonfragcall = "-Xmx8G -jar C:\\Users\\Exploris_Henson\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar";
+        public string hensonjavalocation = @"C:\Users\Exploris_Henson\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
 
         private void idButton_Click(object sender, EventArgs e)
         {
@@ -1668,14 +1687,16 @@ try
             //sudo java -Xmx32g - jar MSFragger - 3.8.jar fragger.params 2023_Sample_205.raw
             List<string> exfiles = new List<string>();
             List<string> fragtimes = new List<string>();
+            string javalocation = "";
             string msfraggerfiles = "";
             string msfraggerparams = devfragparams;
             string msfraggercall = devfragcall;
-            //marcojavalocation = devjavalocation;
+            javalocation = devjavalocation;
 
             //marco setting
-            msfraggerparams = marcofragparams;
-            msfraggercall = marcofragcall;
+            msfraggerparams = hensonfragparams;
+            msfraggercall = hensonfragcall;
+            javalocation = hensonjavalocation;
 
             //DEV ENV
             //string msfraggerparams = "C:\\Users\\DwightZ\\Documents\\QCactus_Requirements\\fragger.params";
@@ -1732,7 +1753,7 @@ try
             //myProcess.StartInfo.FileName = @"C:\Users\DwightZ\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
             //prod
             //myProcess.StartInfo.FileName = @"C:\Users\Exploris_marco\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
-            myProcess.StartInfo.FileName = marcojavalocation;
+            myProcess.StartInfo.FileName = javalocation;
 
             myProcess.StartInfo.Arguments = finalcall;
 
