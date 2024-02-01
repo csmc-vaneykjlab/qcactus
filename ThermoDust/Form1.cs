@@ -114,6 +114,9 @@ namespace ThermoDust
 
         public ScottPlot.Plottable.ScatterPlot MyScatterPlot = new ScottPlot.Plottable.ScatterPlot(null,null);
         public ScottPlot.Plottable.ScatterPlot MyScatterPlot2 = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.ScatterPlot MyScatterPlot3 = new ScottPlot.Plottable.ScatterPlot(null, null);
+
+
         public ScottPlot.Plottable.MarkerPlot HighlightedPointScan = new ScottPlot.Plottable.MarkerPlot();
         public ScottPlot.Plottable.MarkerPlot HighlightedPointScan2 = new ScottPlot.Plottable.MarkerPlot();
         public ScottPlot.Plottable.MarkerPlot HighlightedPointBP = new ScottPlot.Plottable.MarkerPlot();
@@ -124,6 +127,42 @@ namespace ThermoDust
 
         public int LastHighlightedIndex = -1;
         public int LastHighlightedIndex2 = -1;
+
+        //helpers and placeholders for the odd hover bugs in scottplot - I could reduce this but get it working first
+        public ScottPlot.Plottable.ScatterPlot scatFPlotA = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.ScatterPlot scatFPlotB = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.ScatterPlot scatFPlotC = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.ScatterPlot scatFPlotD = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.MarkerPlot scatFhpA = new ScottPlot.Plottable.MarkerPlot();
+        public ScottPlot.Plottable.MarkerPlot scatFhpB = new ScottPlot.Plottable.MarkerPlot();
+        public ScottPlot.Plottable.MarkerPlot scatFhpC = new ScottPlot.Plottable.MarkerPlot();
+        public ScottPlot.Plottable.MarkerPlot scatFhpD = new ScottPlot.Plottable.MarkerPlot();
+
+        public ScottPlot.Plottable.ScatterPlot scatIPlotA = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.ScatterPlot scatIPlotB = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.ScatterPlot scatIPlotC = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.ScatterPlot scatIPlotD = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.ScatterPlot scatIPlotA2 = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.ScatterPlot scatIPlotB2 = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.ScatterPlot scatIPlotC2 = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.ScatterPlot scatIPlotD2 = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.MarkerPlot scatIhpA = new ScottPlot.Plottable.MarkerPlot();
+        public ScottPlot.Plottable.MarkerPlot scatIhpB = new ScottPlot.Plottable.MarkerPlot();
+        public ScottPlot.Plottable.MarkerPlot scatIhpC = new ScottPlot.Plottable.MarkerPlot();
+        public ScottPlot.Plottable.MarkerPlot scatIhpD = new ScottPlot.Plottable.MarkerPlot();
+        public ScottPlot.Plottable.MarkerPlot scatIhpA2 = new ScottPlot.Plottable.MarkerPlot();
+        public ScottPlot.Plottable.MarkerPlot scatIhpB2 = new ScottPlot.Plottable.MarkerPlot();
+        public ScottPlot.Plottable.MarkerPlot scatIhpC2 = new ScottPlot.Plottable.MarkerPlot();
+        public ScottPlot.Plottable.MarkerPlot scatIhpD2 = new ScottPlot.Plottable.MarkerPlot();
+
+        public ScottPlot.Plottable.ScatterPlot scatBPlotA = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.ScatterPlot scatBPlotB = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.ScatterPlot scatBPlotC = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.ScatterPlot scatBPlotD = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.MarkerPlot scatBhpA = new ScottPlot.Plottable.MarkerPlot();
+        public ScottPlot.Plottable.MarkerPlot scatBhpB = new ScottPlot.Plottable.MarkerPlot();
+        public ScottPlot.Plottable.MarkerPlot scatBhpC = new ScottPlot.Plottable.MarkerPlot();
+        public ScottPlot.Plottable.MarkerPlot scatBhpD = new ScottPlot.Plottable.MarkerPlot();
 
         //Load up the form with some helpful presents
         // - - 
@@ -178,8 +217,31 @@ namespace ThermoDust
                     i = i + 1;
                     var fileselected = item.ToString();
                     userSelectedFiles.Add(fileselected);
-
                     var rfpath = Path.Combine(folderListing.Text, fileselected);
+
+
+                    if (fileselected.Contains("GroupA"))
+                    {
+                        string fixpath = fileselected.Split(":")[1].ToString();
+                        rfpath = Path.Combine(GroupADirectory, fixpath);
+                    }
+                    if (fileselected.Contains("GroupB"))
+                    {
+                        string fixpath = fileselected.Split(":")[1].ToString();
+                        rfpath = Path.Combine(GroupBDirectory, fixpath);
+                    }
+                    if (fileselected.Contains("GroupC"))
+                    {
+                        string fixpath = fileselected.Split(":")[1].ToString();
+                        rfpath = Path.Combine(GroupCDirectory, fixpath);
+                    }
+                    if (fileselected.Contains("GroupD"))
+                    {
+                        string fixpath = fileselected.Split(":")[1].ToString();
+                        rfpath = Path.Combine(GroupDDirectory, fixpath);
+                    }
+                    statsBox.Text += rfpath;
+                    
                     IRawDataPlus rf;
                     rf = RawFileReaderFactory.ReadFile(rfpath);
                     rawfiles.Add(rf);
@@ -474,8 +536,8 @@ namespace ThermoDust
             var ms1cv = GetCV(popReal.stDev, popReal.mean); var ms1label = "MS1" + " (" + Math.Round(ms1cv, 1) + "%CV)";
             var ms2cv = GetCV(popBlank.stDev, popBlank.mean); var ms2label = "MS2" + " (" + Math.Round(ms2cv, 1) + "%CV)";
 
-            ScanScatterPlot = plt.AddScatter(blx, bparr, Color.Red, lineWidth: 1, label: ms2label);
-            ScanScatterPlot2 = plt.AddScatter(rlx, ticarr, Color.Blue, lineWidth: 1, label: ms1label);
+            ScanScatterPlot = plt.AddScatter(blx, bparr, primarycolor, lineWidth: 1, label: ms2label);
+            ScanScatterPlot2 = plt.AddScatter(rlx, ticarr, primarycolorAlt, lineWidth: 1, label: ms1label);
 
             var devs1 = deviations * popBlank.stDev;
             var rdevplus = popBlank.mean + devs1;
@@ -491,9 +553,9 @@ namespace ThermoDust
                 }
             }
 
-            plt.AddHorizontalLine(popBlank.mean, Color.Red, width: 1, style: LineStyle.Dash);
-            plt.AddHorizontalLine(rdevplus, Color.Red, width: 1, style: LineStyle.Dot);
-            plt.AddHorizontalLine(rdevminus, Color.Red, width: 1, style: LineStyle.Dot);
+            plt.AddHorizontalLine(popBlank.mean, primarycolor, width: 1, style: LineStyle.Dash);
+            plt.AddHorizontalLine(rdevplus, primarycolor, width: 1, style: LineStyle.Dot);
+            plt.AddHorizontalLine(rdevminus, primarycolor, width: 1, style: LineStyle.Dot);
 
             var devs2 = deviations * popReal.stDev;
             var rdevplus2 = popReal.mean + devs2;
@@ -508,11 +570,11 @@ namespace ThermoDust
                 }
             }
 
-            plt.AddHorizontalLine(rdevplus2, Color.Blue, width: 1, style: LineStyle.Dot);
-            plt.AddHorizontalLine(rdevminus2, Color.Blue, width: 1, style: LineStyle.Dot);
+            plt.AddHorizontalLine(rdevplus2, primarycolorAlt, width: 1, style: LineStyle.Dot);
+            plt.AddHorizontalLine(rdevminus2, primarycolorAlt, width: 1, style: LineStyle.Dot);
 
 
-            plt.AddHorizontalLine(popReal.mean, Color.Blue, width: 1, style: LineStyle.Dash);
+            plt.AddHorizontalLine(popReal.mean, primarycolorAlt, width: 1, style: LineStyle.Dash);
 
             double[] xPositions = blx;
             string[] xLabels = newtimes.ToArray();
@@ -589,11 +651,11 @@ namespace ThermoDust
                 List<DateTime> dates = freshtime.Select(date => DateTime.Parse(date)).ToList();
                 double[] xs = dates.Select(x => x.ToOADate()).ToArray();
                 //var rcv = GetCV(popReal.stDev, popReal.mean); var rlabel = "Samples" + " (" + Math.Round(rcv,1) + "%CV)";
-                MyScatterPlot = plt.AddScatter(xs, realfiles, Color.Red, label: "Samples");
+                MyScatterPlot = plt.AddScatter(xs, realfiles, primarycolor, label: "Samples");
 
-                plt.AddHorizontalLine(popReal.mean, Color.Red, width: 1, style: LineStyle.Dash);
-                plt.AddHorizontalLine(rdevminus, Color.Red, width: 1, style: LineStyle.Dot);
-                plt.AddHorizontalLine(rdevplus, Color.Red, width: 1, style: LineStyle.Dot);
+                plt.AddHorizontalLine(popReal.mean, primarycolor, width: 1, style: LineStyle.Dash);
+                plt.AddHorizontalLine(rdevminus, primarycolor, width: 1, style: LineStyle.Dot);
+                plt.AddHorizontalLine(rdevplus, primarycolor, width: 1, style: LineStyle.Dot);
 
                 calcFileStats(filenames, realfiles, rdevminus, rdevplus, popReal.mean);
             }
@@ -1173,11 +1235,11 @@ try
             var popStats = new ScottPlot.Statistics.Population(bparr);
 
             var bpcv = GetCV(popStats.stDev, popStats.mean); var bplabel = "Samples" + " (" + Math.Round(bpcv, 1) + "%CV)";
-            BPScatterPlot = plt.AddScatter(xs, bparr, Color.Red, label: bplabel);
-            var fancy = plt.AddAnnotation(bplabel, Alignment.UpperLeft);
-            fancy.Font.Size = 18;
-            fancy.BackgroundColor = Color.White;
-
+            BPScatterPlot = plt.AddScatter(xs, bparr, primarycolor, label: bplabel);
+            //var fancy = plt.AddAnnotation(bplabel, Alignment.UpperLeft);
+           // fancy.Font.Size = 18;
+            //fancy.BackgroundColor = Color.White;
+            plt.Legend(location: Alignment.MiddleRight);
             var rdev = deviations * popStats.stDev;
             var rdevplus = popStats.mean + rdev;
             var rdevminus = popStats.mean - rdev;
@@ -1189,9 +1251,9 @@ try
                 }
             }
 
-            plt.AddHorizontalLine(popStats.mean, Color.Red, width: 1, style: LineStyle.Dash);
-            plt.AddHorizontalLine(rdevminus, Color.Red, width: 1, style: LineStyle.Dot);
-            plt.AddHorizontalLine(rdevplus, Color.Red, width: 1, style: LineStyle.Dot);
+            plt.AddHorizontalLine(popStats.mean, primarycolor, width: 1, style: LineStyle.Dash);
+            plt.AddHorizontalLine(rdevminus, primarycolor, width: 1, style: LineStyle.Dot);
+            plt.AddHorizontalLine(rdevplus, primarycolor, width: 1, style: LineStyle.Dot);
 
 
 
@@ -1415,31 +1477,116 @@ try
 
         public void fileSizePlot_MouseMove(object sender, MouseEventArgs e)
         {
+            //new something
+            
+
             try { 
             (double mouseCoordX, double mouseCoordY) = fileSizePlot.GetMouseCoordinates();
             double xyRatio = fileSizePlot.Plot.XAxis.Dims.PxPerUnit / fileSizePlot.Plot.YAxis.Dims.PxPerUnit;
 
             if (mouseCoordX > 0 && mouseCoordY > 0 && dataloaded==true)
             {
-                (double pointX, double pointY, int pointIndex) = MyScatterPlot.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio);
-                // place the highlight over the point of interest
-                HighlightedPoint.X = pointX;
-                HighlightedPoint.Y = pointY;
-                HighlightedPoint.IsVisible = true;
+                (double pointX, double pointY, int pointIndex) = MyScatterPlot.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double pxdif = Math.Abs(mouseCoordX - pointX); double pydif = Math.Abs(mouseCoordY - pointY); double pavg = (pxdif + pydif) / 2;
+                    List<double> diffs = new List<double>() { pavg };
 
-                // render if the highlighted point chnaged
-                if (LastHighlightedIndex != pointIndex)
-                {
-                    LastHighlightedIndex = pointIndex;
-                    fileSizePlot.Render();
+
+                    double ax = 0; double ay = 0; int aIndex = 1;
+                    double bx = 0; double by = 0; int bIndex = 1;
+                    double cx = 0; double cy = 0; int cIndex = 1;
+                    double dx = 0; double dy = 0; int dIndex = 1;
+                    if (GroupAActive==1)
+                    {
+                        (ax, ay, aIndex) = scatFPlotA.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double axdif = Math.Abs(mouseCoordX - ax); double aydif = Math.Abs(mouseCoordY - ay); double aavg = (axdif + aydif) / 2;
+                        diffs.Add(aavg);
+                    
+                    }
+                    if (GroupBActive == 1)
+                    {
+                        (bx,  by, bIndex) = scatFPlotB.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double bxdif = Math.Abs(mouseCoordX - bx); double bydif = Math.Abs(mouseCoordY - by); double bavg = (bxdif + bydif) / 2;
+                        diffs.Add(bavg);
+                    }
+                    if (GroupCActive == 1)
+                    {
+                         (cx, cy,  cIndex) = scatFPlotC.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double cxdif = Math.Abs(mouseCoordX - cx); double cydif = Math.Abs(mouseCoordY - cy); double cavg = (cxdif + cydif) / 2;
+                        diffs.Add(cavg);
+                    }
+                    if (GroupDActive == 1)
+                    {
+                        ( dx,  dy, dIndex) = scatFPlotD.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double dxdif = Math.Abs(mouseCoordX - dx); double dydif = Math.Abs(mouseCoordY - dy); double davg = (dxdif + dydif) / 2;
+                        diffs.Add(davg);
+                    }
+
+
+                        int minValIndex = diffs.IndexOf(diffs.Min());
+
+                    RemoveHPoints();
+                    if (minValIndex == 0)
+                    {
+                        HighlightedPoint.X = pointX;HighlightedPoint.Y = pointY;HighlightedPoint.IsVisible = true;
+                        sizeY.Text = pointY.ToString("F");
+                        sizeFile.Text = rfns[pointIndex];
+                        
+                            LastHighlightedIndex = pointIndex;
+                            fileSizePlot.Render();
+                        //}
+                    }
+                    if (minValIndex == 1)
+                    {
+                        
+                        scatFhpA.X = ax; scatFhpA.Y = ay; scatFhpA.IsVisible = true;
+                        sizeY.Text = ay.ToString("F");
+                        sizeFile.Text = groupFilesA.Items[aIndex].ToString();
+                        
+                            LastHighlightedIndex = aIndex;
+                            fileSizePlot.Render();
+                        //}
+                    }
+                    if (minValIndex == 2)
+                    {
+
+                        scatFhpB.X = bx; scatFhpB.Y = by; scatFhpB.IsVisible = true;
+                        sizeY.Text = by.ToString("F");
+                        sizeFile.Text = groupFilesB.Items[bIndex].ToString();
+                        
+                        LastHighlightedIndex = bIndex;
+                        fileSizePlot.Render();
+                        //}
+                    }
+                    if (minValIndex == 3)
+                    {
+
+                        scatFhpC.X = cx; scatFhpC.Y = cy; scatFhpC.IsVisible = true;
+                        sizeY.Text = cy.ToString("F");
+                        sizeFile.Text = groupFilesC.Items[cIndex].ToString();
+                        
+                        LastHighlightedIndex =cIndex;
+                        fileSizePlot.Render();
+                        //}
+                    }
+                    if (minValIndex == 4)
+                    {
+
+                        scatFhpD.X = dx; scatFhpD.Y = dy; scatFhpD.IsVisible = true;
+                        sizeY.Text = dy.ToString("F");
+                        sizeFile.Text = groupFilesD.Items[dIndex].ToString();
+                        
+                        LastHighlightedIndex = dIndex;
+                        fileSizePlot.Render();
+                        
+                    }
+
                 }
-
-                // update the GUI to describe the highlighted point
-                sizeY.Text = pointY.ToString("F");
-                sizeFile.Text = rfns[pointIndex];
-            }
             }
             catch { }
+        }
+
+        public void RemoveHPoints()
+        {
+            HighlightedPoint.IsVisible = false;
+            scatFhpA.IsVisible = false;
+            scatFhpB.IsVisible = false;
+            scatFhpC.IsVisible = false;
+            scatFhpD.IsVisible = false;
         }
 
         public void idPlot_MouseMove(object sender, MouseEventArgs e)
@@ -1482,7 +1629,7 @@ try
 
                 if (mouseCoordX > 0 && mouseCoordY > 0 && dataloaded == true)
                 {
-                    (double pointX, double pointY, int pointIndex) = MyScatterPlot.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio);
+                    (double pointX, double pointY, int pointIndex) = MyScatterPlot3.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio);
                     // place the highlight over the point of interest
                     HighlightedPointPep.X = pointX;
                     HighlightedPointPep.Y = pointY;
@@ -1506,54 +1653,254 @@ try
 
         public void scanPlot_MouseMove(object sender, MouseEventArgs e)
         {
+            List<double> diffs = new List<double>();
+            //scanPlot.Render();
             try { 
             (double mouseCoordX, double mouseCoordY) = scanPlot.GetMouseCoordinates();
-            double xyRatio = scanPlot.Plot.XAxis.Dims.PxPerUnit / scanPlot.Plot.YAxis.Dims.PxPerUnit;
+            
 
-            if (mouseCoordX > 0 && mouseCoordY > 0 && dataloaded == true)
-            {
-                (double pointX, double pointY, int pointIndex) = ScanScatterPlot.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio);
-                (double pointX2, double pointY2, int pointIndex2) = ScanScatterPlot2.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio);
+                
+
+                if (mouseCoordX > 0 && mouseCoordY > 0 && dataloaded == true)
+            {       
+                    double xyRatio = scanPlot.Plot.XAxis.Dims.PxPerUnit / scanPlot.Plot.YAxis.Dims.PxPerUnit;
+                    double pointX = 0; double pointY = 0; int pointIndex = 1;
+                    double pointX2 = 0; double pointY2 = 0; int pointIndex2 = 1;
+
+                    (pointX, pointY, pointIndex) = ScanScatterPlot.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); 
+                    double pxdif = Math.Abs(mouseCoordX - pointX); 
+                    double pydif = Math.Abs(mouseCoordY - pointY); 
+                    double pavg = (pxdif + pydif) / 2;
+                    diffs.Add(pavg);
+
+                    (pointX2, pointY2, pointIndex2) = ScanScatterPlot2.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); 
+                    double pxdif2 = Math.Abs(mouseCoordX - pointX2); 
+                    double pydif2 = Math.Abs(mouseCoordY - pointY2); 
+                    double pavg2 = (pxdif2 + pydif2) / 2;
+                    diffs.Add(pavg2);
                     // place the highlight over the point of interest
                     
-               var adistance = GetDistance(mouseCoordX, mouseCoordY, pointX, pointY);
-               var bdistance = GetDistance(mouseCoordX, mouseCoordY, pointX2, pointY2);
+                    double ax = 0; double ay = 0; int aIndex = 1;
+                    double bx = 0; double by = 0; int bIndex = 1;
+                    double cx = 0; double cy = 0; int cIndex = 1;
+                    double dx = 0; double dy = 0; int dIndex = 1;
+                    double ax2 = 0; double ay2 = 0; int aIndex2 = 1;
+                    double bx2 = 0; double by2 = 0; int bIndex2 = 1;
+                    double cx2 = 0; double cy2 = 0; int cIndex2 = 1;
+                    double dx2 = 0; double dy2 = 0; int dIndex2 = 1;
 
-                    if (adistance < bdistance)
+                    if (GroupAActive == 1)
                     {
-
-
-                        HighlightedPointScan.X = pointX;
-                        HighlightedPointScan.Y = pointY;
-                        HighlightedPointScan.IsVisible = true;
-                        HighlightedPointScan2.IsVisible = false;
-                        if (LastHighlightedIndex != pointIndex)
-                {
-                    LastHighlightedIndex = pointIndex;
-                    
-                }scanPlot.Render(); scanY2.Text = "----"; scanY.Text = pointY.ToString("F");scanFile.Text = rfns[pointIndex];
-                    }
-                    else
-                    {
-                        HighlightedPointScan2.X = pointX2;
-                        HighlightedPointScan2.Y = pointY2;
-                        HighlightedPointScan2.IsVisible = true;
-                        HighlightedPointScan.IsVisible = false;
-                if (LastHighlightedIndex != pointIndex2)
-                {
-                    LastHighlightedIndex2 = pointIndex2;
-                    
-                }scanPlot.Render();scanY.Text = "----"; scanY2.Text = pointY2.ToString("F"); scanFile.Text = rfns[pointIndex2];
+                        (ax, ay, aIndex) = scatIPlotA.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double axdif = Math.Abs(mouseCoordX - ax); double aydif = Math.Abs(mouseCoordY - ay); double aavg = (axdif + aydif) / 2;
+                        (ax2, ay2, aIndex2) = scatIPlotA2.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double axdif2 = Math.Abs(mouseCoordX - ax2); double aydif2 = Math.Abs(mouseCoordY - ay2); double aavg2 = (axdif2 + aydif2) / 2;
+                        diffs.Add(aavg); diffs.Add(aavg2);
 
                     }
+                    if (GroupBActive == 1)
+                    {
+                        (bx, by, bIndex) = scatIPlotB.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double bxdif = Math.Abs(mouseCoordX - bx); double bydif = Math.Abs(mouseCoordY - by); double bavg = (bxdif + bydif) / 2;
+                        diffs.Add(bavg);
+                        (bx2, by2, bIndex2) = scatIPlotB2.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double bxdif2 = Math.Abs(mouseCoordX - bx2); double bydif2 = Math.Abs(mouseCoordY - by2); double bavg2 = (bxdif2 + bydif2) / 2;
+                        diffs.Add(bavg2);
+                    }
+                    if (GroupCActive == 1)
+                    {
+                        (cx, cy, cIndex) = scatIPlotC.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double cxdif = Math.Abs(mouseCoordX - cx); double cydif = Math.Abs(mouseCoordY - cy); double cavg = (cxdif + cydif) / 2;
+                        diffs.Add(cavg);
+                        (cx2, cy2, cIndex2) = scatIPlotC2.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double cxdif2 = Math.Abs(mouseCoordX - cx2); double cydif2 = Math.Abs(mouseCoordY - cy2); double cavg2 = (cxdif2 + cydif2) / 2;
+                        diffs.Add(cavg2);
+                    }
+                    if (GroupDActive == 1)
+                    {
+                        (dx, dy, dIndex) = scatIPlotD.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double dxdif = Math.Abs(mouseCoordX - dx); double dydif = Math.Abs(mouseCoordY - dy); double davg = (dxdif + dydif) / 2;
+                        diffs.Add(davg);
+                        (dx2, dy2, dIndex2) = scatIPlotD2.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double dxdif2 = Math.Abs(mouseCoordX - dx2); double dydif2 = Math.Abs(mouseCoordY - dy2); double davg2 = (dxdif2 + dydif2) / 2;
+                        diffs.Add(davg2);
+                    }
 
-                
-                
-                
-            }
+
+                    int minValIndex = diffs.IndexOf(diffs.Min());
+
+                    HighlightedPointScan.IsVisible = false;
+                    HighlightedPointScan2.IsVisible = false;
+                    scatIhpA.IsVisible = false;
+                    scatIhpA2.IsVisible = false;
+                    scatIhpB.IsVisible = false;
+                    scatIhpB2.IsVisible = false;
+                    scatIhpC.IsVisible = false;
+                    scatIhpC2.IsVisible = false;
+                    scatIhpD.IsVisible = false;
+                    scatIhpD2.IsVisible = false;
+                    var adistance = GetDistance(mouseCoordX, mouseCoordY, pointX, pointY);
+                    var bdistance = GetDistance(mouseCoordX, mouseCoordY, pointX2, pointY2);
+                    if (minValIndex < 2)
+                    {
+                        if (adistance < bdistance)
+                        {
+
+
+                            HighlightedPointScan.X = pointX;
+                            HighlightedPointScan.Y = pointY;
+                            HighlightedPointScan.IsVisible = true;
+
+                            scanPlot.Render(); scanY2.Text = "----"; scanY.Text = pointY.ToString("F"); scanFile.Text = rfns[pointIndex];
+                        }
+                        else
+                        {
+                            HighlightedPointScan2.X = pointX2;
+                            HighlightedPointScan2.Y = pointY2;
+                            HighlightedPointScan2.IsVisible = true;
+
+                            scanPlot.Render(); scanY.Text = "----"; scanY2.Text = pointY2.ToString("F"); scanFile.Text = rfns[pointIndex2];
+
+                        }
+                    }
+
+                    //hero.Text = minValIndex.ToString() + "--"+ Math.Round(pavg2,4).ToString() + "--" + Math.Round(pavg,4).ToString();
+
+                    //if (minValIndex == 0)
+                    //{
+                    //    HighlightedPointScan.X = pointX;
+                    //    HighlightedPointScan.Y = pointY;
+                    //    HighlightedPointScan.IsVisible = true;
+                    //    scanY2.Text = "----";
+                    //    scanY2.Text = "----"; scanY.Text = pointY.ToString("F"); scanFile.Text = rfns[pointIndex];scanPlot.Render(); 
+                    //    //}
+                    //}
+                    //if (minValIndex == 1)
+                    //{
+
+                    //    HighlightedPointScan2.X = pointX2;
+                    //    HighlightedPointScan2.Y = pointY2;
+                    //    HighlightedPointScan2.IsVisible = true;
+                    //    scanY2.Text = "----";
+                    //    scanY.Text = "----"; scanY2.Text = pointY2.ToString("F"); scanFile.Text = rfns[pointIndex2];scanPlot.Render(); 
+                    //    //}
+                    //}
+
+                    if (minValIndex == 2)
+                    {
+
+                        scatIhpA.X = ax; scatIhpA.Y = ay; scatIhpA.IsVisible = true;
+                        scanFile.Text = groupFilesA.Items[aIndex].ToString();
+                        scanY.Text = ay.ToString("F");
+                        scanY2.Text = "----";
+
+                        scanPlot.Render();
+                        //}
+                    }
+                    if (minValIndex == 3)
+                    {
+
+                        scatIhpA2.X = ax2; scatIhpA2.Y = ay2; scatIhpA2.IsVisible = true;
+                        scanFile.Text = groupFilesA.Items[aIndex2].ToString();
+                        scanY.Text = "----";
+                        scanY2.Text = ay2.ToString("F");
+
+                        scanPlot.Render();
+
+                        //}
+                    }
+                    if (minValIndex == 4)
+                    {
+
+                        scatIhpB.X = bx; scatIhpB.Y = by; scatIhpB.IsVisible = true;
+                        sizeY.Text = by.ToString("F");
+                        scanFile.Text = groupFilesB.Items[bIndex].ToString(); 
+                        scanY.Text = by.ToString("F");
+                        scanY2.Text = "----"; 
+
+                        scanPlot.Render();
+                        //}
+                    }
+                    if (minValIndex == 5)
+                    {
+                        scatIhpB2.X = bx2; scatIhpB2.Y = by2; scatIhpB2.IsVisible = true;
+                        sizeY.Text = by2.ToString("F");
+                        scanFile.Text = groupFilesB.Items[bIndex2].ToString();
+                        scanY.Text = "----"; 
+                        scanY2.Text = by2.ToString("F");
+
+                        scanPlot.Render();
+
+                        //}
+                    }
+                    if (minValIndex == 6)
+                    {
+
+                        scatIhpC.X = cx; scatIhpC.Y = cy; scatIhpC.IsVisible = true;
+                        sizeY.Text = cy.ToString("F");
+                        scanFile.Text = groupFilesC.Items[cIndex].ToString();
+                        scanY.Text = cy.ToString("F");
+                        scanY2.Text = "----";
+
+                        scanPlot.Render();
+                        //}
+                    }
+                    if (minValIndex == 7)
+                    {
+                        scatIhpC2.X = cx2; scatIhpC2.Y = cy2; scatIhpC2.IsVisible = true;
+                        sizeY.Text = cy2.ToString("F");
+                        scanFile.Text = groupFilesC.Items[cIndex2].ToString();
+                        scanY.Text = "----";
+                        scanY2.Text = cy2.ToString("F");
+
+                        scanPlot.Render();
+
+                        //}
+                    }
+                    if (minValIndex == 8)
+                    {
+
+                        scatIhpD.X = dx; scatIhpD.Y = dy; scatIhpD.IsVisible = true;
+                        sizeY.Text = dy.ToString("F");
+                        scanFile.Text = groupFilesD.Items[dIndex].ToString();
+                        scanY.Text = dy.ToString("F");
+                        scanY2.Text = "----";
+
+                        scanPlot.Render();
+                        //}
+                    }
+                    if (minValIndex == 9)
+                    {
+                        scatIhpD2.X = dx2; scatIhpD2.Y = dy2; scatIhpD2.IsVisible = true;
+                        sizeY.Text = dy2.ToString("F");
+                        scanFile.Text = groupFilesD.Items[dIndex2].ToString();
+                        scanY.Text = "----";
+                        scanY2.Text = dy2.ToString("F");
+
+                        scanPlot.Render();
+
+                        //}
+                    }
+
+
+
+
+
+                }
 
             }
             catch { }
+
+
+
+
+
+        }
+
+        public void clearOutMSHovers()
+        {
+            HighlightedPointScan.IsVisible = false;
+            HighlightedPointScan2.IsVisible = false;
+            scatIhpA.IsVisible = false;
+            scatIhpA2.IsVisible = false;
+            scatIhpB.IsVisible = false;
+            scatIhpB2.IsVisible = false;
+            scatIhpC.IsVisible = false;
+            scatIhpC2.IsVisible = false;
+            scatIhpD.IsVisible = false;
+            scatIhpD2.IsVisible = false;
         }
 
         private static double GetDistance(double x1, double y1, double x2, double y2)
@@ -1574,22 +1921,96 @@ try
             if (mouseCoordX > 0 && mouseCoordY > 0 && dataloaded == true)
             {
                 (double pointX, double pointY, int pointIndex) = BPScatterPlot.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio);
-                // place the highlight over the point of interest
-                HighlightedPointBP.X = pointX;
-                HighlightedPointBP.Y = pointY;
-                HighlightedPointBP.IsVisible = true;
+                    double pxdif = Math.Abs(mouseCoordX - pointX); double pydif = Math.Abs(mouseCoordY - pointY); double pavg = (pxdif + pydif) / 2;
+                    List<double> diffs = new List<double>() { pavg };
 
-                // render if the highlighted point chnaged
-                if (LastHighlightedIndex != pointIndex)
-                {
-                    LastHighlightedIndex = pointIndex;
-                    basePeakPlot.Render();
+                    double ax = 0; double ay = 0; int aIndex = 1;
+                    double bx = 0; double by = 0; int bIndex = 1;
+                    double cx = 0; double cy = 0; int cIndex = 1;
+                    double dx = 0; double dy = 0; int dIndex = 1;
+                    if (GroupAActive == 1)
+                    {
+                        (ax, ay, aIndex) = scatBPlotA.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double axdif = Math.Abs(mouseCoordX - ax); double aydif = Math.Abs(mouseCoordY - ay); double aavg = (axdif + aydif) / 2;
+                        diffs.Add(aavg);
+
+                    }
+                    if (GroupBActive == 1)
+                    {
+                        (bx, by, bIndex) = scatBPlotB.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double bxdif = Math.Abs(mouseCoordX - bx); double bydif = Math.Abs(mouseCoordY - by); double bavg = (bxdif + bydif) / 2;
+                        diffs.Add(bavg);
+                    }
+                    if (GroupCActive == 1)
+                    {
+                        (cx, cy, cIndex) = scatBPlotC.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double cxdif = Math.Abs(mouseCoordX - cx); double cydif = Math.Abs(mouseCoordY - cy); double cavg = (cxdif + cydif) / 2;
+                        diffs.Add(cavg);
+                    }
+                    if (GroupDActive == 1)
+                    {
+                        (dx, dy, dIndex) = scatBPlotD.GetPointNearest(mouseCoordX, mouseCoordY, xyRatio); double dxdif = Math.Abs(mouseCoordX - dx); double dydif = Math.Abs(mouseCoordY - dy); double davg = (dxdif + dydif) / 2;
+                        diffs.Add(davg);
+                    }
+
+
+                    int minValIndex = diffs.IndexOf(diffs.Min());
+
+                    HighlightedPointBP.IsVisible = false;
+                    scatBhpA.IsVisible = false;
+                    scatBhpB.IsVisible = false;
+                    scatBhpC.IsVisible = false;
+                    scatBhpD.IsVisible = false;
+
+                    if (minValIndex == 0)
+                    {
+                        HighlightedPointBP.X = pointX;
+                        HighlightedPointBP.Y = pointY;
+                        HighlightedPointBP.IsVisible = true;
+                        basePeakPlot.Render();
+                        bpY.Text = pointY.ToString("F");
+                        bpFile.Text = rfns[pointIndex];
+
+                    }
+                    if (minValIndex == 1)
+                    {
+
+                        scatBhpA.X = ax; scatBhpA.Y = ay; scatBhpA.IsVisible = true;
+                        bpY.Text = ay.ToString("F");
+                        bpFile.Text = groupFilesA.Items[aIndex].ToString();
+
+                        basePeakPlot.Render();
+                        //}
+                    }
+                    if (minValIndex == 2)
+                    {
+
+                        scatBhpB.X = bx; scatBhpB.Y = by; scatBhpB.IsVisible = true;
+                        bpY.Text = by.ToString("F");
+                        bpFile.Text = groupFilesB.Items[bIndex].ToString();
+
+                        basePeakPlot.Render();
+                        //}
+                    }
+                    if (minValIndex == 3)
+                    {
+
+                        scatBhpC.X = cx; scatBhpC.Y = cy; scatBhpC.IsVisible = true;
+                        bpY.Text = cy.ToString("F");
+                        bpFile.Text = groupFilesC.Items[cIndex].ToString();
+
+                        basePeakPlot.Render();
+                        //}
+                    }
+                    if (minValIndex == 4)
+                    {
+
+                        scatBhpD.X = dx; scatBhpD.Y = dy; scatBhpD.IsVisible = true;
+                        bpY.Text = dy.ToString("F");
+                        bpFile.Text = groupFilesD.Items[dIndex].ToString();
+
+                        basePeakPlot.Render();
+
+                    }
+
                 }
-
-                
-                bpY.Text = pointY.ToString("F");
-                bpFile.Text = rfns[pointIndex];
-            }
 
             }
             catch { }
@@ -1631,6 +2052,15 @@ try
         public string getFileCreatedDate(string fname)
         {
             var rfpath = Path.Combine(folderListing.Text, fname);
+            IRawDataPlus rf;
+            rf = RawFileReaderFactory.ReadFile(rfpath);
+            string creationdate = rf.CreationDate.ToString();
+            return creationdate;
+        }
+
+        public string getFileCreatedDateFullPath(string fullpath)
+        {
+            var rfpath = fullpath;
             IRawDataPlus rf;
             rf = RawFileReaderFactory.ReadFile(rfpath);
             string creationdate = rf.CreationDate.ToString();
@@ -1694,9 +2124,9 @@ try
             javalocation = devjavalocation;
 
             //marco setting
-            msfraggerparams = hensonfragparams;
-            msfraggercall = hensonfragcall;
-            javalocation = hensonjavalocation;
+            msfraggerparams = marcofragparams;
+            msfraggercall = marcofragcall;
+            javalocation = marcojavalocation;
 
             //DEV ENV
             //string msfraggerparams = "C:\\Users\\DwightZ\\Documents\\QCactus_Requirements\\fragger.params";
@@ -1815,7 +2245,7 @@ try
 
 
 
-                MyScatterPlot2 = plt.AddScatter(xs, proteins, Color.Red, label: "Proteins");
+                MyScatterPlot2 = plt.AddScatter(xs, proteins, primarycolor, label: "Proteins");
                 //MyScatterPlot = plt.AddScatter(rlx, peptides, Color.Green, label: "Peptides");
 
                 plt.AddHorizontalLine(popReal.mean, Color.Gray, width: 1, style: LineStyle.Dash);
@@ -1865,7 +2295,7 @@ try
 
             List<DateTime> dates = freshtime.Select(date => DateTime.Parse(date)).ToList();
             double[] xs = dates.Select(x => x.ToOADate()).ToArray();
-            MyScatterPlot = plt.AddScatter(xs, peptides, Color.Blue, label: "Peptides");
+            MyScatterPlot3 = plt.AddScatter(xs, peptides, Color.Blue, label: "Peptides");
 
             plt.AddHorizontalLine(popReal.mean, Color.Gray, width: 1, style: LineStyle.Dash);
             plt.AddHorizontalLine(rdevminus, Color.Gray, width: 1, style: LineStyle.Dot);
@@ -1995,7 +2425,592 @@ try
 
         }
 
+        private string getFilePath(string queryfile)
+        {
+            FileInfo qf = new FileInfo(queryfile);
+            string path = qf.FullName;
+            return path;    
+        }
 
+        public string GroupADirectory = "";
+        public string GroupBDirectory = "";
+        public string GroupCDirectory = "";
+        public string GroupDDirectory = "";
+        private void addFilesBtn_Click(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialogA.ShowDialog(); 
+            openFileDialogA.DefaultExt = "raw";
+            List<FileInfo> unorderedList = new List<FileInfo>();
+            if (result == DialogResult.OK)
+            {
+
+                foreach (String file in openFileDialogA.FileNames)
+                {
+
+                    FileInfo fname = new FileInfo(file);
+                    unorderedList.Add(fname);
+                    GroupADirectory = fname.DirectoryName.ToString();
+                }
+
+                List<FileInfo> orderedList = unorderedList.OrderBy(x => getFileCreatedDateFullPath(x.FullName)).ToList();
+
+                foreach (FileInfo filei in orderedList)
+                {
+                    groupFilesA.Items.Add(filei.Name);
+                }
+
+                for (int c = 0; c < groupFilesA.Items.Count; c++)
+                {
+                    groupFilesA.SetItemChecked(c, true);
+                }
+
+            }
+
+        }
+
+        
+
+        private void addFileBtnG2_Click(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialogB.ShowDialog();
+            openFileDialogB.DefaultExt = "raw";
+            List<FileInfo> unorderedList = new List<FileInfo>();
+            if (result == DialogResult.OK)
+            {
+
+                foreach (String file in openFileDialogB.FileNames)
+                {
+                    FileInfo fname = new FileInfo(file);
+                    unorderedList.Add(fname);
+                    GroupBDirectory = fname.DirectoryName.ToString();
+                }
+
+                List<FileInfo> orderedList = unorderedList.OrderBy(x => getFileCreatedDateFullPath(x.FullName)).ToList();
+
+                foreach (FileInfo filei in orderedList)
+                {
+                    groupFilesB.Items.Add(filei.Name);
+                }
+
+                for (int c = 0; c < groupFilesB.Items.Count; c++)
+                {
+                    groupFilesB.SetItemChecked(c, true);
+                }
+
+            }
+        }
+
+        private void addFileBtnG3_Click(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialogC.ShowDialog();
+            openFileDialogC.DefaultExt = "raw";
+            List<FileInfo> unorderedList = new List<FileInfo>();
+            if (result == DialogResult.OK)
+            {
+
+                foreach (String file in openFileDialogC.FileNames)
+                {
+                    FileInfo fname = new FileInfo(file);
+                    unorderedList.Add(fname);
+                    GroupCDirectory = fname.DirectoryName.ToString();
+                }
+
+                List<FileInfo> orderedList = unorderedList.OrderBy(x => getFileCreatedDateFullPath(x.FullName)).ToList();
+
+                foreach (FileInfo filei in orderedList)
+                {
+                    groupFilesC.Items.Add(filei.Name);
+                }
+
+                for (int c = 0; c < groupFilesC.Items.Count; c++)
+                {
+                    groupFilesC.SetItemChecked(c, true);
+                }
+
+            }
+        }
+
+        private void addFileBtnG4_Click(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialogD.ShowDialog();
+            openFileDialogD.DefaultExt = "raw";
+            List<FileInfo> unorderedList = new List<FileInfo>();
+            if (result == DialogResult.OK)
+            {
+
+                foreach (String file in openFileDialogD.FileNames)
+                {
+                    FileInfo fname = new FileInfo(file);
+                    unorderedList.Add(fname);
+                    GroupDDirectory = fname.DirectoryName.ToString();
+                }
+
+                List<FileInfo> orderedList = unorderedList.OrderBy(x => getFileCreatedDateFullPath(x.FullName)).ToList();
+
+                foreach (FileInfo filei in orderedList)
+                {
+                    groupFilesD.Items.Add(filei.Name);
+                }
+
+                for (int c = 0; c < groupFilesD.Items.Count; c++)
+                {
+                    groupFilesD.SetItemChecked(c, true);
+                }
+
+            }
+        }
+
+        public System.Drawing.Color primarycolor = System.Drawing.ColorTranslator.FromHtml("#DB5461");
+        public System.Drawing.Color primarycolorLight = System.Drawing.ColorTranslator.FromHtml("#6A6D82");
+        public System.Drawing.Color primarycolorAlt = System.Drawing.ColorTranslator.FromHtml("#6E44FF");
+        public System.Drawing.Color primarycolorAltLight = System.Drawing.ColorTranslator.FromHtml("#9B93BA");
+
+        public List<string> ATimes = new List<string>();
+        public List<string> BTimes = new List<string>();
+        public List<string> CTimes = new List<string>();
+        public List<string> DTimes = new List<string>();
+        private void runGroupsBtn_Click(object sender, EventArgs e)
+        {
+            // store size series info
+            List<double> AFileSizes = new List<double>();
+            List<string> AFileNames = new List<string>();
+
+            List<double> BFileSizes = new List<double>();
+            List<string> BFileNames = new List<string>();
+
+            List<double> CFileSizes = new List<double>();
+            List<string> CFileNames = new List<string>();
+
+            List<double> DFileSizes = new List<double>();
+            List<string> DFileNames = new List<string>();
+
+            //loop through the imported file names from the list box
+            foreach (String ftx in groupFilesA.Items)
+            {   string fintx = GroupADirectory + "\\" + ftx;
+                FileInfo file_stuff = new FileInfo(fintx);
+                double size = file_stuff.Length;
+                size = size / 1025f / 1024f;
+
+
+                AFileSizes.Add(size);
+                AFileNames.Add(file_stuff.Name);
+                string sdate = getFileCreatedDateFullPath(file_stuff.FullName);
+                ATimes.Add(sdate);
+                checkedListBox1.Items.Add(("GroupA:" + file_stuff.Name));
+            }
+
+            foreach (String ftx in groupFilesB.Items)
+            {
+                string fintx = GroupBDirectory + "\\" + ftx;
+                FileInfo file_stuff = new FileInfo(fintx);
+                double size = file_stuff.Length;
+                size = size / 1025f / 1024f;
+
+
+                BFileSizes.Add(size);
+                BFileNames.Add(file_stuff.Name);
+                string sdate = getFileCreatedDateFullPath(file_stuff.FullName);
+                BTimes.Add(sdate);
+                checkedListBox1.Items.Add(("GroupB:" + file_stuff.Name));
+            }
+
+            foreach (String ftx in groupFilesC.Items)
+            {
+                string fintx = GroupCDirectory + "\\" + ftx;
+                FileInfo file_stuff = new FileInfo(fintx);
+                double size = file_stuff.Length;
+                size = size / 1025f / 1024f;
+
+
+                CFileSizes.Add(size);
+                CFileNames.Add(file_stuff.Name);
+                string sdate = getFileCreatedDateFullPath(file_stuff.FullName);
+                CTimes.Add(sdate);
+                checkedListBox1.Items.Add(("GroupC:" + file_stuff.Name));
+            }
+
+            foreach (String ftx in groupFilesD.Items)
+            {
+                string fintx = GroupDDirectory + "\\" + ftx;
+                FileInfo file_stuff = new FileInfo(fintx);
+                double size = file_stuff.Length;
+                size = size / 1025f / 1024f;
+
+
+                DFileSizes.Add(size);
+                DFileNames.Add(file_stuff.Name);
+                string sdate = getFileCreatedDateFullPath(file_stuff.FullName);
+                DTimes.Add(sdate);
+                checkedListBox1.Items.Add(("GroupD:" + file_stuff.Name));
+            }
+
+            System.Drawing.Color cola = System.Drawing.ColorTranslator.FromHtml("#5EBB89");
+            System.Drawing.Color colb = System.Drawing.ColorTranslator.FromHtml("#3FA7D6");
+            System.Drawing.Color colc = System.Drawing.ColorTranslator.FromHtml("#FAC05E");
+            System.Drawing.Color cold = System.Drawing.ColorTranslator.FromHtml("#00E8FC");
+
+            if (groupFilesA.Items.Count > 0)
+            {
+                // GROUP A
+                // #1 ADD NEW FILES TO FILE SIZE PLOT
+                addSeriesFileSizes(AFileSizes, ATimes, cola, "Group A");
+                // #2 ADD NEW FILES TO INTENSITY PLOT
+                addSeriesFileIntensity(AFileNames, ATimes, GroupADirectory, "Group A", cola, cola);
+                // #3 ADD NEW FILES TO BP PLOT
+                addSeriesFileBPS(AFileNames, ATimes, GroupADirectory, "Group A", cola);
+            }
+            if (groupFilesB.Items.Count > 0)
+            {
+                // GROUP B
+                // #1 ADD NEW FILES TO FILE SIZE PLOT
+                addSeriesFileSizes(BFileSizes, BTimes,colb, "Group B");
+                // #2 ADD NEW FILES TO INTENSITY PLOT
+                addSeriesFileIntensity(BFileNames, BTimes, GroupBDirectory, "Group B",colb, colb);
+                // #3 ADD NEW FILES TO BP PLOT
+                addSeriesFileBPS(BFileNames, BTimes, GroupBDirectory, "Group B", colb);
+            }
+            if (groupFilesC.Items.Count > 0)
+            {
+                // GROUP C
+                // #1 ADD NEW FILES TO FILE SIZE PLOT
+                addSeriesFileSizes(CFileSizes, CTimes, colc, "Group C");
+                // #2 ADD NEW FILES TO INTENSITY PLOT
+                addSeriesFileIntensity(CFileNames, CTimes, GroupCDirectory, "Group C", colc, colc);
+                // #3 ADD NEW FILES TO BP PLOT
+                addSeriesFileBPS(CFileNames, CTimes, GroupCDirectory, "Group C",colc);
+            }
+            if (groupFilesD.Items.Count > 0)
+            {
+                // GROUP D
+                // #1 ADD NEW FILES TO FILE SIZE PLOT
+                addSeriesFileSizes(DFileSizes, DTimes, cold, "Group D");
+                // #2 ADD NEW FILES TO INTENSITY PLOT
+                addSeriesFileIntensity(DFileNames, DTimes, GroupDDirectory, "Group D", cold, cold);
+                // #3 ADD NEW FILES TO BP PLOT
+                addSeriesFileBPS(DFileNames, DTimes, GroupDDirectory, "Group D", cold);
+            }
+
+
+        }
+
+        public void addSeriesFileBPS(List<string> filenames, List<string> timestamps, string group, string groupname, Color linecolor)
+        {
+            List<double> maxbps = new List<double>();
+            List<string> filenames2 = new List<string>();
+            List<string> timestamps2 = new List<string>();
+            
+            var item = 0;
+            var i = 1;
+            foreach (string fname in filenames)
+            {
+
+                progressBar1.Value = i * progressBar1.Maximum / filenames.Count;
+                i = i + 1;
+                try
+                {
+                    var rfpath = Path.Combine(group, fname);
+                    IRawDataPlus rf;
+                    rf = RawFileReaderFactory.ReadFile(rfpath);
+
+
+                    rf.SelectInstrument(Device.MS, 1);
+
+                    filenames2.Add(fname);
+                    timestamps2.Add(timestamps[item]);
+                    int firstScanNumber = rf.RunHeaderEx.FirstSpectrum;
+                    int lastScanNumber = rf.RunHeaderEx.LastSpectrum;
+                    var filename = Path.GetFileName(rf.FileName);
+                    var maxbasepeak = 0.0;
+                    var count = 0;
+                    List<double> bs = new List<double>();
+                    List<double> ts = new List<double>();
+
+                    maxbasepeak = GetBPInformation(rf, firstScanNumber, lastScanNumber) / (10e8);
+                    maxbps.Add(maxbasepeak);
+
+                    item = item + 1;
+                }
+                catch
+                {
+                    statsBox.Text += "\n\nError reading:" + fname + ".  Excluded from intensity plot.\n\n";
+                }
+
+            }
+            addGroupBPSToPlot(maxbps, timestamps, filenames2,groupname, linecolor);
+
+
+        }
+
+        public void addGroupBPSToPlot(List<double> bps, List<string> sttime, List<string> files, string groupname, Color linecolor)
+        {
+            var plt = basePeakPlot.Plot;
+            List<DateTime> adjustedFileWrites = adjustTimeGap(sttime);
+
+            double[] bparr = bps.ToArray();
+            // List<DateTime> dates = sttime.Select(date => DateTime.Parse(date)).ToList();
+
+            List<DateTime> dates = adjustedFileWrites;
+            double[] xs = dates.Select(x => x.ToOADate()).ToArray();
+
+            var popbs = new ScottPlot.Statistics.Population(bparr); var bscv = GetCV(popbs.stDev, popbs.mean);
+            var bslabel = " " + " (" + Math.Round(bscv, 1) + "%CV)";
+
+            switch (groupname)
+            {
+                case "Group A":
+                    scatBPlotA = plt.AddScatter(xs, bparr, linecolor, label: (groupname + bslabel));
+                    scatBhpA = plt.AddPoint(0, 0); scatBhpA.Color = Color.Black; scatBhpA.MarkerSize = 20; scatBhpA.MarkerShape = ScottPlot.MarkerShape.openCircle; scatBhpA.IsVisible = false;
+                    GroupAActive = 1;
+                    break;
+                case "Group B":
+                    scatBPlotB = plt.AddScatter(xs, bparr, linecolor, label: (groupname + bslabel));
+                    scatBhpB = plt.AddPoint(0, 0); scatBhpB.Color = Color.Black; scatBhpB.MarkerSize = 20; scatBhpB.MarkerShape = ScottPlot.MarkerShape.openCircle; scatBhpB.IsVisible = false;
+                    GroupBActive = 1;
+                    break;
+                case "Group C":
+                    scatBPlotC = plt.AddScatter(xs, bparr, linecolor, label: (groupname + bslabel));
+                    scatBhpC = plt.AddPoint(0, 0); scatBhpC.Color = Color.Black; scatBhpC.MarkerSize = 20; scatBhpC.MarkerShape = ScottPlot.MarkerShape.openCircle; scatBhpC.IsVisible = false;
+                    GroupCActive = 1;
+                    break;
+                case "Group D":
+                    scatBPlotD = plt.AddScatter(xs, bparr, linecolor, label: (groupname + bslabel));
+                    scatBhpD = plt.AddPoint(0, 0); scatBhpD.Color = Color.Black; scatBhpD.MarkerSize = 20; scatBhpD.MarkerShape = ScottPlot.MarkerShape.openCircle; scatBhpD.IsVisible = false;
+                    GroupDActive = 1;
+                    break;
+            }
+
+
+            //BPScatterPlot = plt.AddScatter(xs, bparr, linecolor, label: (groupname + bslabel));
+            plt.Legend(location: Alignment.MiddleRight);
+            plt.AxisAuto();
+            var imgdir = GetPath() + "\\images\\ALLBASEPEAKS.png";
+            plt.SaveFig(@imgdir);
+
+            basePeakPlot.Refresh();
+        }
+
+
+
+        public int GroupAActive = 0;
+        public int GroupBActive = 0;
+        public int GroupCActive = 0;
+        public int GroupDActive = 0;
+
+        public void addSeriesFileSizes(List<double> filesizes, List<string> filelastwrites, Color linecolor, string linelabel)
+        {
+            List<DateTime> adjustedFileWrites = adjustTimeGap(filelastwrites);
+
+            var plt = fileSizePlot.Plot;
+            //plt.Clear();
+            List<string> newtimes = new List<string>(filelastwrites);
+            double[] realfiles1 = filesizes.ToArray();
+            int[] realx = Enumerable.Range(1, realfiles1.Count()).ToArray();
+            var rlx = realx.Select(x => (double)x).ToArray();
+
+ 
+
+            List<DateTime> dates = filelastwrites.Select(date => DateTime.Parse(date)).ToList();
+
+
+            double[] xs1 = adjustedFileWrites.Select(x => x.ToOADate()).ToArray();
+            switch (linelabel)
+            {
+                case "Group A":
+                    scatFPlotA = plt.AddScatter(xs1, realfiles1, linecolor, label: linelabel);
+                    scatFhpA = plt.AddPoint(0, 0); scatFhpA.Color = Color.Black; scatFhpA.MarkerSize = 20; scatFhpA.MarkerShape = ScottPlot.MarkerShape.openCircle; scatFhpA.IsVisible = false;
+                    GroupAActive = 1;
+                    break;
+                case "Group B":
+                    scatFPlotB = plt.AddScatter(xs1, realfiles1, linecolor, label: linelabel);
+                    scatFhpB = plt.AddPoint(0, 0); scatFhpB.Color = Color.Black; scatFhpB.MarkerSize = 20; scatFhpB.MarkerShape = ScottPlot.MarkerShape.openCircle; scatFhpB.IsVisible = false;
+                    GroupBActive = 1;
+                    break;
+                case "Group C":
+                    scatFPlotC = plt.AddScatter(xs1, realfiles1, linecolor, label: linelabel);
+                    scatFhpC = plt.AddPoint(0, 0); scatFhpC.Color = Color.Black; scatFhpC.MarkerSize = 20; scatFhpC.MarkerShape = ScottPlot.MarkerShape.openCircle; scatFhpC.IsVisible = false;
+                    GroupCActive = 1;
+                    break;
+                case "Group D":
+                    scatFPlotD = plt.AddScatter(xs1, realfiles1, linecolor, label: linelabel);
+                    scatFhpC = plt.AddPoint(0, 0); scatFhpD.Color = Color.Black; scatFhpD.MarkerSize = 20; scatFhpD.MarkerShape = ScottPlot.MarkerShape.openCircle; scatFhpD.IsVisible = false;
+                    GroupDActive = 1;
+                    break;
+            }
+
+            
+
+
+
+            //MyScatterPlot += plt.AddScatter(xs1, realfiles1, linecolor, label: linelabel);
+            //plt.AddScatter(xs1, realfiles1, linecolor, label: linelabel);
+            plt.AxisAuto();
+
+
+            var imgdir = GetPath() + "\\images\\ALLFILESIZES.png";
+            plt.SaveFig(@imgdir);
+
+            fileSizePlot.Refresh();
+            
+        }
+
+
+
+        public void addSeriesFileIntensity(List<string> filenames, List<string> timestamps, string group, string groupname, Color ms1color, Color ms2color)
+        {
+            List<double> maxbps = new List<double>();
+            List<double> maxtics = new List<double>();
+            List<string> filenames2 = new List<string>();
+
+            var item = 0;
+            var i = 1;
+            foreach (string fname in filenames)
+            {
+
+                progressBar1.Value = i * progressBar1.Maximum / filenames.Count;
+                i = i + 1;
+
+                try
+                {
+                    var rfpath = Path.Combine(group, fname);
+                    IRawDataPlus rf;
+                    rf = RawFileReaderFactory.ReadFile(rfpath);
+
+                    rf.SelectInstrument(Device.MS, 1);
+
+
+                    filenames2.Add(fname);
+                    int firstScanNumber = rf.RunHeaderEx.FirstSpectrum;
+                    int lastScanNumber = rf.RunHeaderEx.LastSpectrum;
+                    var filename = Path.GetFileName(rf.FileName);
+                    var maxbasepeak = 0.0;
+                    var maxtic = 0.0;
+                    var count = 0;
+                    List<double> bs = new List<double>();
+                    List<double> ts = new List<double>();
+
+                    foreach (var scanNumber in Enumerable
+                                   .Range(1, lastScanNumber - firstScanNumber))
+                    {
+                        var scanStatistics = rf.GetScanStatsForScanNumber(scanNumber);
+                        var scanFilter = rf.GetFilterForScanNumber(scanNumber);
+                        if (scanFilter.MSOrder == MSOrderType.Ms)
+                        {
+                            count = count + 1;
+
+
+                            double newTic = Math.Log10(scanStatistics.TIC); 
+
+                            ts.Add(newTic);
+
+                        }
+                        if (scanFilter.MSOrder == MSOrderType.Ms2)
+                        {
+                            double newTic = Math.Log10(scanStatistics.TIC);
+                            bs.Add(newTic);
+                        }
+
+
+                    }
+                    maxbasepeak = GetMedian(bs.ToArray()); //ACTUALLY MS2
+
+                    maxtic = GetMedian(ts.ToArray()); //ACTUALLY MS1
+
+                    maxbps.Add(maxbasepeak);
+                    maxtics.Add(maxtic);
+                    item = item + 1;
+                }
+                catch { timestamps.RemoveAt(item); statsBox.Text += "\nError reading:" + fname + ".  Excluded from intensity plot.\n"; }
+
+            }
+            addGroupIntensitiesToPlot(maxbps, maxtics, timestamps, filenames,groupname,ms1color,ms2color);
+            //storeMedianMS(maxtics, maxbps, filenames);
+
+        }
+
+        public void addGroupIntensitiesToPlot(List<double> bps, List<double> tics, List<string> timestamps, List<string> fnames, string groupname, Color ms1color, Color ms2color)
+        {
+            List<string> newtimes = new List<string>(timestamps);
+
+
+            var plt = scanPlot.Plot;
+
+            double[] bparr = bps.ToArray();
+            double[] ticarr = tics.ToArray();
+            for (int i = 0; i < newtimes.Count; i++)
+            {
+                var time = newtimes[i].Split(" ");
+
+                newtimes[i] = time[1] + time[2][0] + "\n" + time[0];
+            }
+            int[] bpx = Enumerable.Range(1, bparr.Count()).ToArray();
+            int[] ticx = Enumerable.Range(1, ticarr.Count()).ToArray();
+            var blx = bpx.Select(x => (double)x).ToArray();
+            var rlx = ticx.Select(x => (double)x).ToArray();
+
+            var popms2 = new ScottPlot.Statistics.Population(bparr); var ms2cv = GetCV(popms2.stDev, popms2.mean);
+            var popms1 = new ScottPlot.Statistics.Population(ticarr); var ms1cv = GetCV(popms1.stDev, popms1.mean);
+            var ms1label = "-MS1" + " (" + Math.Round(ms1cv, 1) + "%CV)";
+            var ms2label = "-MS2" + " (" + Math.Round(ms2cv, 1) + "%CV)";
+
+            switch (groupname)
+            {
+                case "Group A":
+                    scatIPlotA = plt.AddScatter(blx, bparr, ms2color, lineWidth: 1, label: (groupname + ms2label));
+                    scatIPlotA2 = plt.AddScatter(rlx, ticarr, ms1color, lineWidth: 1, label: (groupname + ms1label));
+                    scatIhpA = plt.AddPoint(0, 0); scatIhpA.Color = Color.Black; scatIhpA.MarkerSize = 20; scatIhpA.MarkerShape = ScottPlot.MarkerShape.openCircle; scatIhpA.IsVisible = false;
+                    scatIhpA2 = plt.AddPoint(0, 0); scatIhpA2.Color = Color.Black; scatIhpA2.MarkerSize = 20; scatIhpA2.MarkerShape = ScottPlot.MarkerShape.openCircle; scatIhpA2.IsVisible = false;
+                    GroupAActive = 1;
+                    break;
+                case "Group B":
+                    scatIPlotB = plt.AddScatter(blx, bparr, ms2color, lineWidth: 1, label: (groupname + ms2label));
+                    scatIPlotB2 = plt.AddScatter(rlx, ticarr, ms1color, lineWidth: 1, label: (groupname + ms1label));
+                    scatIhpB = plt.AddPoint(0, 0); scatIhpB.Color = Color.Black; scatIhpB.MarkerSize = 20; scatIhpB.MarkerShape = ScottPlot.MarkerShape.openCircle; scatIhpB.IsVisible = false;
+                    scatIhpB2 = plt.AddPoint(0, 0); scatIhpB2.Color = Color.Black; scatIhpB2.MarkerSize = 20; scatIhpB2.MarkerShape = ScottPlot.MarkerShape.openCircle; scatIhpB2.IsVisible = false;
+                    GroupBActive = 1;
+                    break;
+                case "Group C":
+                    scatIPlotC = plt.AddScatter(blx, bparr, ms2color, lineWidth: 1, label: (groupname + ms2label));
+                    scatIPlotC2 = plt.AddScatter(rlx, ticarr, ms1color, lineWidth: 1, label: (groupname + ms1label));
+                    scatIhpC = plt.AddPoint(0, 0); scatIhpC.Color = Color.Black; scatIhpC.MarkerSize = 20; scatIhpC.MarkerShape = ScottPlot.MarkerShape.openCircle; scatIhpC.IsVisible = false;
+                    scatIhpC2 = plt.AddPoint(0, 0); scatIhpC2.Color = Color.Black; scatIhpC2.MarkerSize = 20; scatIhpC2.MarkerShape = ScottPlot.MarkerShape.openCircle; scatIhpC2.IsVisible = false;
+                    GroupCActive = 1;
+                    break;
+                case "Group D":
+                    scatIPlotD = plt.AddScatter(blx, bparr, ms2color, lineWidth: 1, label: (groupname + ms2label));
+                    scatIPlotD2 = plt.AddScatter(rlx, ticarr, ms1color, lineWidth: 1, label: (groupname + ms1label));
+                    scatIhpD = plt.AddPoint(0, 0); scatIhpD.Color = Color.Black; scatIhpD.MarkerSize = 20; scatIhpD.MarkerShape = ScottPlot.MarkerShape.openCircle; scatIhpD.IsVisible = false;
+                    scatIhpD2 = plt.AddPoint(0, 0); scatIhpD2.Color = Color.Black; scatIhpD2.MarkerSize = 20; scatIhpD2.MarkerShape = ScottPlot.MarkerShape.openCircle; scatIhpD2.IsVisible = false;
+                    GroupDActive = 1;
+                    break;
+            }
+            //ScanScatterPlot = plt.AddScatter(blx, bparr, ms2color, lineWidth: 1, label: (groupname + ms2label));
+            //ScanScatterPlot2 = plt.AddScatter(rlx, ticarr, ms1color, lineWidth: 1, label: (groupname + ms1label));
+
+            plt.AxisAuto();
+            var imgdir = GetPath() + "\\images\\MEANS.png";
+            plt.SaveFig(@imgdir);
+
+
+            scanPlot.Refresh();
+        }
+
+        public List<DateTime> adjustTimeGap(List<string> tstamps)
+        {
+            List<DateTime> olddates = tstamps.Select(date => DateTime.Parse(date)).ToList();
+            List<DateTime> newdates = times.Select(date => DateTime.Parse(date)).ToList();
+            List<DateTime> adjusted = new List<DateTime>();
+            TimeSpan timewarp = (newdates[0] - olddates[0]);
+            for (int i = 0; i < olddates.Count; i++)
+            {   
+                //richTextBox1.Text += olddates[i].ToString() + "\n";
+                DateTime nx = olddates[i].Add(timewarp);
+                //richTextBox1.Text += nx.ToString() + "\n";
+                adjusted.Add( nx );
+            }
+
+            //return olddates;
+            return adjusted;
+        }
     }
 
 

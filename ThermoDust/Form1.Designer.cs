@@ -50,6 +50,20 @@
             this.label5 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.statsBox = new System.Windows.Forms.RichTextBox();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.runGroupsBtn = new System.Windows.Forms.Button();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.addFileBtnG4 = new System.Windows.Forms.Button();
+            this.addFileBtnG3 = new System.Windows.Forms.Button();
+            this.groupFilesD = new System.Windows.Forms.CheckedListBox();
+            this.groupFilesC = new System.Windows.Forms.CheckedListBox();
+            this.addFileBtnG2 = new System.Windows.Forms.Button();
+            this.groupFilesB = new System.Windows.Forms.CheckedListBox();
+            this.addFilesBtn = new System.Windows.Forms.Button();
+            this.groupFilesA = new System.Windows.Forms.CheckedListBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.label19 = new System.Windows.Forms.Label();
             this.failedFileList = new System.Windows.Forms.ListBox();
@@ -120,9 +134,14 @@
             this.licenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label20 = new System.Windows.Forms.Label();
+            this.openFileDialogA = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialogB = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialogC = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialogD = new System.Windows.Forms.OpenFileDialog();
             this.panel3.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage7.SuspendLayout();
+            this.tabPage8.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -185,6 +204,7 @@
             // tabControl2
             // 
             this.tabControl2.Controls.Add(this.tabPage7);
+            this.tabControl2.Controls.Add(this.tabPage8);
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Location = new System.Drawing.Point(4, 36);
             this.tabControl2.Name = "tabControl2";
@@ -361,6 +381,151 @@
             this.statsBox.Size = new System.Drawing.Size(419, 326);
             this.statsBox.TabIndex = 0;
             this.statsBox.Text = "Please select a folder above...";
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.runGroupsBtn);
+            this.tabPage8.Controls.Add(this.label28);
+            this.tabPage8.Controls.Add(this.label27);
+            this.tabPage8.Controls.Add(this.label26);
+            this.tabPage8.Controls.Add(this.label12);
+            this.tabPage8.Controls.Add(this.addFileBtnG4);
+            this.tabPage8.Controls.Add(this.addFileBtnG3);
+            this.tabPage8.Controls.Add(this.groupFilesD);
+            this.tabPage8.Controls.Add(this.groupFilesC);
+            this.tabPage8.Controls.Add(this.addFileBtnG2);
+            this.tabPage8.Controls.Add(this.groupFilesB);
+            this.tabPage8.Controls.Add(this.addFilesBtn);
+            this.tabPage8.Controls.Add(this.groupFilesA);
+            this.tabPage8.Location = new System.Drawing.Point(4, 24);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(432, 425);
+            this.tabPage8.TabIndex = 3;
+            this.tabPage8.Text = "File Manager";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // runGroupsBtn
+            // 
+            this.runGroupsBtn.Location = new System.Drawing.Point(176, 203);
+            this.runGroupsBtn.Name = "runGroupsBtn";
+            this.runGroupsBtn.Size = new System.Drawing.Size(75, 23);
+            this.runGroupsBtn.TabIndex = 12;
+            this.runGroupsBtn.Text = "Analyze";
+            this.runGroupsBtn.UseVisualStyleBackColor = true;
+            this.runGroupsBtn.Click += new System.EventHandler(this.runGroupsBtn_Click);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label28.Location = new System.Drawing.Point(223, 396);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(51, 15);
+            this.label28.TabIndex = 11;
+            this.label28.Text = "Group D";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label27.Location = new System.Drawing.Point(153, 396);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(51, 15);
+            this.label27.TabIndex = 10;
+            this.label27.Text = "Group C";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label26.Location = new System.Drawing.Point(224, 16);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(50, 15);
+            this.label26.TabIndex = 9;
+            this.label26.Text = "Group B";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label12.Location = new System.Drawing.Point(153, 16);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(51, 15);
+            this.label12.TabIndex = 8;
+            this.label12.Text = "Group A";
+            // 
+            // addFileBtnG4
+            // 
+            this.addFileBtnG4.Location = new System.Drawing.Point(347, 396);
+            this.addFileBtnG4.Name = "addFileBtnG4";
+            this.addFileBtnG4.Size = new System.Drawing.Size(75, 23);
+            this.addFileBtnG4.TabIndex = 7;
+            this.addFileBtnG4.Text = "Add File(s)";
+            this.addFileBtnG4.UseVisualStyleBackColor = true;
+            this.addFileBtnG4.Click += new System.EventHandler(this.addFileBtnG4_Click);
+            // 
+            // addFileBtnG3
+            // 
+            this.addFileBtnG3.Location = new System.Drawing.Point(6, 396);
+            this.addFileBtnG3.Name = "addFileBtnG3";
+            this.addFileBtnG3.Size = new System.Drawing.Size(75, 23);
+            this.addFileBtnG3.TabIndex = 6;
+            this.addFileBtnG3.Text = "Add File(s)";
+            this.addFileBtnG3.UseVisualStyleBackColor = true;
+            this.addFileBtnG3.Click += new System.EventHandler(this.addFileBtnG3_Click);
+            // 
+            // groupFilesD
+            // 
+            this.groupFilesD.FormattingEnabled = true;
+            this.groupFilesD.Location = new System.Drawing.Point(224, 227);
+            this.groupFilesD.Name = "groupFilesD";
+            this.groupFilesD.Size = new System.Drawing.Size(198, 166);
+            this.groupFilesD.TabIndex = 5;
+            // 
+            // groupFilesC
+            // 
+            this.groupFilesC.FormattingEnabled = true;
+            this.groupFilesC.Location = new System.Drawing.Point(6, 227);
+            this.groupFilesC.Name = "groupFilesC";
+            this.groupFilesC.Size = new System.Drawing.Size(198, 166);
+            this.groupFilesC.TabIndex = 4;
+            // 
+            // addFileBtnG2
+            // 
+            this.addFileBtnG2.Location = new System.Drawing.Point(347, 10);
+            this.addFileBtnG2.Name = "addFileBtnG2";
+            this.addFileBtnG2.Size = new System.Drawing.Size(75, 23);
+            this.addFileBtnG2.TabIndex = 3;
+            this.addFileBtnG2.Text = "Add File(s)";
+            this.addFileBtnG2.UseVisualStyleBackColor = true;
+            this.addFileBtnG2.Click += new System.EventHandler(this.addFileBtnG2_Click);
+            // 
+            // groupFilesB
+            // 
+            this.groupFilesB.FormattingEnabled = true;
+            this.groupFilesB.Location = new System.Drawing.Point(224, 34);
+            this.groupFilesB.Name = "groupFilesB";
+            this.groupFilesB.Size = new System.Drawing.Size(198, 166);
+            this.groupFilesB.TabIndex = 2;
+            // 
+            // addFilesBtn
+            // 
+            this.addFilesBtn.Location = new System.Drawing.Point(6, 10);
+            this.addFilesBtn.Name = "addFilesBtn";
+            this.addFilesBtn.Size = new System.Drawing.Size(75, 23);
+            this.addFilesBtn.TabIndex = 1;
+            this.addFilesBtn.Text = "Add File(s)";
+            this.addFilesBtn.UseVisualStyleBackColor = true;
+            this.addFilesBtn.Click += new System.EventHandler(this.addFilesBtn_Click);
+            // 
+            // groupFilesA
+            // 
+            this.groupFilesA.FormattingEnabled = true;
+            this.groupFilesA.Location = new System.Drawing.Point(6, 34);
+            this.groupFilesA.Name = "groupFilesA";
+            this.groupFilesA.Size = new System.Drawing.Size(198, 166);
+            this.groupFilesA.TabIndex = 0;
             // 
             // tabPage5
             // 
@@ -1014,7 +1179,7 @@
             this.groupBox1.Size = new System.Drawing.Size(448, 541);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Load Files";
+            this.groupBox1.Text = "Start Here!";
             // 
             // brukerBtn
             // 
@@ -1083,6 +1248,26 @@
             this.label20.TabIndex = 16;
             this.label20.Text = "TM";
             // 
+            // openFileDialogA
+            // 
+            this.openFileDialogA.FileName = "openFileDialog1";
+            this.openFileDialogA.Multiselect = true;
+            // 
+            // openFileDialogB
+            // 
+            this.openFileDialogB.FileName = "openFileDialog1";
+            this.openFileDialogB.Multiselect = true;
+            // 
+            // openFileDialogC
+            // 
+            this.openFileDialogC.FileName = "openFileDialog2";
+            this.openFileDialogC.Multiselect = true;
+            // 
+            // openFileDialogD
+            // 
+            this.openFileDialogD.FileName = "openFileDialog3";
+            this.openFileDialogD.Multiselect = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1101,13 +1286,15 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.ShowIcon = false;
-            this.Text = "v3.1 | Precision Biomarker Labs @ Cedars-Sinai ";
+            this.Text = "v3.2 | Precision Biomarker Labs @ Cedars-Sinai ";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
+            this.tabPage8.ResumeLayout(false);
+            this.tabPage8.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -1225,6 +1412,24 @@
         private Label label25;
         private Label idPepFile;
         private Label idPepY;
+        private TabPage tabPage8;
+        private Button addFilesBtn;
+        private CheckedListBox groupFilesA;
+        private CheckedListBox groupFilesD;
+        private CheckedListBox groupFilesC;
+        private Button addFileBtnG2;
+        private CheckedListBox groupFilesB;
+        private Button addFileBtnG4;
+        private Button addFileBtnG3;
+        private OpenFileDialog openFileDialogA;
+        private OpenFileDialog openFileDialogB;
+        private OpenFileDialog openFileDialogC;
+        private OpenFileDialog openFileDialogD;
+        private Label label26;
+        private Label label12;
+        private Label label28;
+        private Label label27;
+        private Button runGroupsBtn;
         //private ScottPlot.Plot superplot1;
     }
 }
