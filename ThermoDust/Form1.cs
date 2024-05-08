@@ -28,7 +28,12 @@ using PdfSharp.Pdf.IO;
 using Microsoft.Data.Sqlite;
 using System.Text;
 
-
+// Author's Note: 
+// While we do our best to maintain a public source, this repo contains
+// an unpolished yet pretty straight forward version of QCactus.  We
+// don't publish tests or infrastructure details or anything that may
+// compromise Cedars-Sinai digital assets or reveal IP.  At the end of the day,
+// we are here to compete.
 
 
 
@@ -318,8 +323,7 @@ namespace ThermoDust
 
                 }
 
-                /////////////// FIX HERE FIX HERE !!!
-                //List<FileInfo> orderedFList = files.OrderBy(x => x.LastWriteTime).ToList();
+                
                 List<FileInfo> orderedFList = files.OrderBy(x => getFileTimeStamp(x.Name)).ToList();
                 files = orderedFList.ToArray();
                 for (int i = 0; i < files.Length; i++)
@@ -421,10 +425,7 @@ namespace ThermoDust
 
 
                             double newTic = Math.Log10(scanStatistics.TIC); //closest
-                            //double newBP = Math.Log10(scanStatistics.BasePeakIntensity);
                             
-                            //bs.Add(newBP);
-                            //ts.Add(newTic);
 
                             ts.Add(newTic);
 
@@ -1191,21 +1192,7 @@ try
                 var count = 0;
                 List<double> bs = new List<double>();
                 List<double> ts = new List<double>();
-                
-                    //foreach (var scanNumber in Enumerable
-                    //               .Range(1, lastScanNumber - firstScanNumber))
-                    //{
-                    //    var scanStatistics = rf.GetScanStatsForScanNumber(scanNumber);
-                    //    var scanFilter = rf.GetFilterForScanNumber(scanNumber);
-                    //    if (scanFilter.MSOrder == MSOrderType.Ms)
-                    //    {
-                    //        count = count + 1;
-                    //        double newBP = Math.Log10(scanStatistics.BasePeakIntensity);  
-                    //        bs.Add(newBP);
-                    //    }
 
-                    //}
-                    //maxbasepeak = FindMax(bs.ToArray());
                     maxbasepeak = GetBPInformation(rf, firstScanNumber, lastScanNumber)/(10e8);
                     maxbps.Add(maxbasepeak);
                     
@@ -1236,9 +1223,7 @@ try
 
             var bpcv = GetCV(popStats.stDev, popStats.mean); var bplabel = "Samples" + " (" + Math.Round(bpcv, 1) + "%CV)";
             BPScatterPlot = plt.AddScatter(xs, bparr, primarycolor, label: bplabel);
-            //var fancy = plt.AddAnnotation(bplabel, Alignment.UpperLeft);
-           // fancy.Font.Size = 18;
-            //fancy.BackgroundColor = Color.White;
+            
             plt.Legend(location: Alignment.MiddleRight);
             var rdev = deviations * popStats.stDev;
             var rdevplus = popStats.mean + rdev;
@@ -1289,7 +1274,7 @@ try
 
 
 
-        //Tool Strip Menu Buttons
+        // Tool Strip Menu Buttons
         // - - GUI + LOGISTICS
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1364,17 +1349,17 @@ try
         // - - GUI
         private void licenseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.MessageBox.Show("Copyright 2023 PBL @ Cedars-Sinai Medical Center \n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and / or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  \n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. \n\nTHE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.");
+            System.Windows.Forms.MessageBox.Show("Copyright 2023 PBL @ Cedars-Sinai Medical Center \n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the Â“SoftwareÂ”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and / or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  \n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. \n\nTHE SOFTWARE IS PROVIDED Â“AS ISÂ”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.");
         }
 
-        //CLOSE APP
+        // CLOSE APP
         // - - GUI
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Application.Exit();
         }
 
-        //CREATE PDF REPORT
+        // CREATE PDF REPORT
         // - - STATISTICS + METRICS
         public string createHTMLReportText()
         { 
@@ -1472,8 +1457,9 @@ try
 
 
 
-        //MOUSE OVER THE PLOTS + Interaction
+        // Graph interaction and hover 
         // Calculate and 'add' the labels as the user interacts so a couple functions to help
+        // A complete pain in the butt
 
         public void fileSizePlot_MouseMove(object sender, MouseEventArgs e)
         {
@@ -1756,27 +1742,6 @@ try
                         }
                     }
 
-                    //hero.Text = minValIndex.ToString() + "--"+ Math.Round(pavg2,4).ToString() + "--" + Math.Round(pavg,4).ToString();
-
-                    //if (minValIndex == 0)
-                    //{
-                    //    HighlightedPointScan.X = pointX;
-                    //    HighlightedPointScan.Y = pointY;
-                    //    HighlightedPointScan.IsVisible = true;
-                    //    scanY2.Text = "----";
-                    //    scanY2.Text = "----"; scanY.Text = pointY.ToString("F"); scanFile.Text = rfns[pointIndex];scanPlot.Render(); 
-                    //    //}
-                    //}
-                    //if (minValIndex == 1)
-                    //{
-
-                    //    HighlightedPointScan2.X = pointX2;
-                    //    HighlightedPointScan2.Y = pointY2;
-                    //    HighlightedPointScan2.IsVisible = true;
-                    //    scanY2.Text = "----";
-                    //    scanY.Text = "----"; scanY2.Text = pointY2.ToString("F"); scanFile.Text = rfns[pointIndex2];scanPlot.Render(); 
-                    //    //}
-                    //}
 
                     if (minValIndex == 2)
                     {
@@ -2016,7 +1981,10 @@ try
             catch { }
         }
 
-        //INTEGRITY CHECK FOR FILES VIA SIZE AND READABILITY
+        // Integrity Check
+        // --------------------------
+        // Quick check of file integrity
+        
         public bool integrityCheck(string fname, long filemb)
         {   
 
@@ -2048,6 +2016,10 @@ try
                 
             return integrity;
         }
+
+        // HELPERS FOR FILE INFO
+        // --------------------------
+        // Some functions to pull information on raw files
 
         public string getFileCreatedDate(string fname)
         {
@@ -2093,20 +2065,14 @@ try
 
 
         // IDENTIFICATION AND SEARCH VIA MSFRAGGER
-        //DEV
-        public string devfragparams = "C:\\Users\\DwightZ\\Documents\\QCactus_Requirements\\fragger.params";
-        public string devfragcall = "-Xmx6G -jar C:\\Users\\DwightZ\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar";
-        public string devjavalocation = @"C:\Users\DwightZ\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
-        //PRODUCTION ON MARCO
-        public string marcofragparams = "C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\fragger.params";
-        public string marcofragcall = "-Xmx8G -jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar";
-        public string marcojavalocation = @"C:\Users\Exploris_marco\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
-        //public string marcosystemjavalocation = @"C:\Program Files (x86)\Java\jre-1.8\bin\java.exe";
-        //PRODUCTION ON Henson
-        //C:\Users\Exploris_Henson\Documents\QCactus_Requirements
-        public string hensonfragparams = "C:\\Users\\Exploris_Henson\\Documents\\QCactus_Requirements\\fragger.params";
-        public string hensonfragcall = "-Xmx8G -jar C:\\Users\\Exploris_Henson\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar";
-        public string hensonjavalocation = @"C:\Users\Exploris_Henson\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
+        //DEV, you'll need to create a folder for all the nice extras needed like jdk and msfragger.jar and a file for msfragger params
+        // Example below of how I called msfragger from C#
+        
+        public string devfragparams = "C:\\Users\\DwightZ\\Documents\\QCactus_FILES\\fragger.params";
+        public string devfragcall = "-Xmx6G -jar C:\\Users\\DwightZ\\Documents\\QCactus_FILES\\MSFragger-3.8.jar";
+        public string devjavalocation = @"C:\Users\DwightZ\Documents\QCactus_FILES\jdk-20.0.2\bin\java.exe";
+
+
 
         private void idButton_Click(object sender, EventArgs e)
         {
@@ -2127,14 +2093,6 @@ try
             msfraggerparams = marcofragparams;
             msfraggercall = marcofragcall;
             javalocation = marcojavalocation;
-
-            //DEV ENV
-            //string msfraggerparams = "C:\\Users\\DwightZ\\Documents\\QCactus_Requirements\\fragger.params";
-            //string msfraggercall = "-Xmx6G -jar C:\\Users\\DwightZ\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar";
-
-            //PRODU
-            //string msfraggerparams = "C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\fragger.params";
-            //string msfraggercall = "-Xmx12G -jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar";
 
             string finalcall = "";
             peptide_count.Clear();
@@ -2166,29 +2124,16 @@ try
             }
             
 
-            //testing note:
-            // INVALID HEAP SIZE java -Xmx6G -jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\fragger.params C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\2023_Sample_432.raw
-            //INVALID HEAP SIZE java -Xmx8G -jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\fragger.params C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\2023_Sample_432.raw
-            //C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\jdk-20.0.2\\bin\\java.exe -Xmx8G -jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\MSFragger-3.8.jar C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\fragger.params C:\\Users\\Exploris_marco\\Documents\\QCactus_Requirements\\2023_Sample_432.raw
-
-
-
             Process myProcess = new Process();
             myProcess.StartInfo.UseShellExecute = false;
             myProcess.StartInfo.RedirectStandardOutput = true;
             myProcess.StartInfo.CreateNoWindow = false;
-            //myProcess.StartInfo.FileName = the location of java.exe
 
-            //dev
-            //myProcess.StartInfo.FileName = @"C:\Users\DwightZ\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
-            //prod
-            //myProcess.StartInfo.FileName = @"C:\Users\Exploris_marco\Documents\QCactus_Requirements\jdk-20.0.2\bin\java.exe";
             myProcess.StartInfo.FileName = javalocation;
 
             myProcess.StartInfo.Arguments = finalcall;
 
             label21.Text = "Start: " + DateTime.Now.ToString("h: mm tt");
-            //myProcess.StartInfo.Arguments = "-Xmx6G -jar C:\\Users\\DwightZ\\Desktop\\QCactus_Pub\\testingvisualstudio\\MSFragger-3.8.jar C:\\Users\\DwightZ\\Desktop\\QCactus_Pub\\testingvisualstudio\\fragger.params C:\\Users\\DwightZ\\Desktop\\QCactus_Pub\\testingvisualstudio\\2023_Sample_432.raw";
             idTextBox.Text += "Start MSFragger...\n";
             myProcess.Start();
             string output = myProcess.StandardOutput.ReadToEnd();
@@ -2331,7 +2276,6 @@ try
                 idTextBox.Text += filepath + "\n";
                 string[] lines;
                 var list = new List<string>();
-                //var fileStream = new FileStream(@"C:\\Users\\DwightZ\\Desktop\\QCactus_Pub\\testingvisualstudio\\2023_Sample_432.pin", FileMode.Open, FileAccess.Read);
                 var fileStream = new FileStream(filepath, FileMode.Open, FileAccess.Read);
                 using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
                 {
@@ -2389,7 +2333,7 @@ try
         // the pyton script would then have the necessary classes to dig into and query data from bruker files / projects
         // works as a prototype but still thinking on ion mobility and what else to include
 
-        // running a 
+        
         private void run_py_cmd()
         {
             //empty the output box
@@ -2431,6 +2375,14 @@ try
             string path = qf.FullName;
             return path;    
         }
+
+
+        
+        // GROUPS
+        // --------------------------
+        // I added a bunch of groups option for comparison in qcactus but this section is just hardcoded to get the point across
+        // this should be rewritten and consolidated into a group class and reorganized because this was a last minute addition and 
+        // painted myself into a corner with some earlier decisions
 
         public string GroupADirectory = "";
         public string GroupBDirectory = "";
