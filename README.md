@@ -1,5 +1,5 @@
 <h1><img src="ThermoDust/images/cactus86.png" width="75" > QCactus </h1> 
-QCactus is a C# desktop application for quickly consolidating QC metrics for proteomics data.
+QCactus is a C# desktop application for quickly consolidating QC metrics for proteomics data.  Please note this version is not our internal production version but rather a fun, messy community version.  Can't give everything away ;)
 
 ## Technical Requirements
 This application is written in C# and intended to run as a Windows Desktop Application.
