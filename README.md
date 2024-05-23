@@ -10,7 +10,7 @@ This application is written in C# and intended to run as a Windows Desktop Appli
   - Visual Studio 2023
   - The project is named 'ThermoDust' in this repo
 
-Please note this version is not our internal production version but rather a fun, messy community version.  Can't give everything away ;)
+NOTE: this version is not our internal production version but rather a community version.  Can't give everything away ;)
  
 ## Features
 The current version focuses on providing a wrapper of sorts for the following workflow:
