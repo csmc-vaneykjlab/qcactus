@@ -26,7 +26,7 @@ The current version focuses on providing a wrapper of sorts for the following wo
 ## License
 This software falls under the MIT license (attached).  The 'QCactus' name is trademark of Cedars-Sinai.
 
-## Poster
+## Poster w/ Screenshots
 
 [PBL_ASMS_QCACTUS.pdf](https://github.com/user-attachments/files/19248460/PBL_ASMS_QCACTUS.pdf)
 
