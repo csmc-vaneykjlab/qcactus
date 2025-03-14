@@ -26,6 +26,11 @@ The current version focuses on providing a wrapper of sorts for the following wo
 ## License
 This software falls under the MIT license (attached).  The 'QCactus' name is trademark of Cedars-Sinai.
 
+## Poster
+
+[PBL_ASMS_QCACTUS.pdf](https://github.com/user-attachments/files/19248460/PBL_ASMS_QCACTUS.pdf)
+
+
 ## About Us
 Cedars-Sinai Precision Biomarker Laboratories (PBL) provides complete proteomics solutions across biomarker discovery, validation and CAP/CLIA-certified laboratory testing capabilities.  Our customized workflows allow for the quick translation from protein discovery to clinically validated targeted panels.
 
