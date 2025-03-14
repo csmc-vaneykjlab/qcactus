@@ -22,14 +22,13 @@ The current version focuses on providing a wrapper of sorts for the following wo
 - Provide ID-free metrics based on raw files w/ plots
 - Provide ID-based summary of raw files via MSFragger w/plots
 - Export an example PDF report of derived QC information
-
-## License
-This software falls under the MIT license (attached).  The 'QCactus' name is trademark of Cedars-Sinai.
-
+- 
 ## Poster w/ Screenshots
 
 [PBL_ASMS_QCACTUS.pdf](https://github.com/user-attachments/files/19248460/PBL_ASMS_QCACTUS.pdf)
 
+## License
+This software falls under the MIT license (attached).  The 'QCactus' name is trademark of Cedars-Sinai.
 
 ## About Us
 Cedars-Sinai Precision Biomarker Laboratories (PBL) provides complete proteomics solutions across biomarker discovery, validation and CAP/CLIA-certified laboratory testing capabilities.  Our customized workflows allow for the quick translation from protein discovery to clinically validated targeted panels.
