@@ -6,6 +6,13 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyTitle>QCactus</AssemblyTitle>
+    <Product>QCactus</Product>
+    <Company>Cedars-Sinai Precision Biomarker Laboratories</Company>
+    <Copyright>Copyright © Cedars-Sinai</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,6 +45,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

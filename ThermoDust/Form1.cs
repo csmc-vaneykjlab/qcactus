@@ -46,10 +46,146 @@ namespace ThermoDust
 {
     public partial class Form1 : Form
     {
+        // ── Theme colors ────────────────────────────────────────────────
+        private static readonly Color BgDark    = Color.FromArgb(24, 26, 38);
+        private static readonly Color BgPanel   = Color.FromArgb(36, 39, 56);
+        private static readonly Color BgInput   = Color.FromArgb(18, 20, 30);
+        private static readonly Color Accent    = Color.FromArgb(82, 196, 217);
+        private static readonly Color TextLight = Color.FromArgb(220, 228, 240);
+
+        // ── Status bar (added programmatically) ─────────────────────────
+        private StatusStrip  _statusStrip  = null!;
+        private ToolStripStatusLabel _statusLabel = null!;
+
         public Form1()
         {
             InitializeComponent();
-            
+            SetupMenuAndStatusBar();
+        }
+
+        // ── Menu + status bar setup ──────────────────────────────────────
+        private void SetupMenuAndStatusBar()
+        {
+            // Menu strip
+            var menuStrip = new MenuStrip { BackColor = BgPanel, ForeColor = TextLight };
+            var toolsMenu = new ToolStripMenuItem("Tools") { ForeColor = TextLight };
+            var settingsItem = new ToolStripMenuItem("Settings…") { ForeColor = TextLight };
+            settingsItem.Click += (s, e) =>
+            {
+                using var sf = new SettingsForm();
+                sf.ShowDialog(this);
+                ValidatePaths();   // refresh warning after settings change
+            };
+            toolsMenu.DropDownItems.Add(settingsItem);
+            menuStrip.Items.Add(toolsMenu);
+            this.MainMenuStrip = menuStrip;
+            this.Controls.Add(menuStrip);
+
+            // Status strip
+            _statusStrip = new StatusStrip { BackColor = BgPanel };
+            _statusLabel = new ToolStripStatusLabel("Ready") { ForeColor = TextLight };
+            _statusStrip.Items.Add(_statusLabel);
+            this.Controls.Add(_statusStrip);
+        }
+
+        // ── First-run path detection ─────────────────────────────────────
+        private void DetectDefaultPaths()
+        {
+            string appDir = AppDomain.CurrentDomain.BaseDirectory;
+            string jar    = Path.Combine(appDir, "msfragger", "MSFragger-3.8.jar");
+            string parms  = Path.Combine(appDir, "msfragger", "fragger.params");
+            string outDir = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "QCactus");
+
+            if (File.Exists(jar))
+                Properties.Settings.Default.MSFraggerJarPath = jar;
+            if (File.Exists(parms))
+                Properties.Settings.Default.FraggerParamsPath = parms;
+            if (string.IsNullOrEmpty(Properties.Settings.Default.JavaPath))
+                Properties.Settings.Default.JavaPath = "java";
+            if (string.IsNullOrEmpty(Properties.Settings.Default.OutputDirectory))
+                Properties.Settings.Default.OutputDirectory = outDir;
+
+            Properties.Settings.Default.Save();
+        }
+
+        // ── Validate paths and update status bar ─────────────────────────
+        private void ValidatePaths()
+        {
+            string jar = Properties.Settings.Default.MSFraggerJarPath;
+            if (string.IsNullOrEmpty(jar) || !File.Exists(jar))
+                _statusLabel.Text = "⚠  MSFragger not configured — open Tools → Settings";
+            else
+                _statusLabel.Text = "Ready";
+        }
+
+        // ── Dark theme ───────────────────────────────────────────────────
+        private void ApplyTheme()
+        {
+            this.BackColor = BgDark;
+            this.ForeColor = TextLight;
+            this.Font = new Font("Segoe UI", 9.5f, FontStyle.Regular);
+            ApplyThemeRecursive(this.Controls);
+        }
+
+        private void ApplyThemeRecursive(Control.ControlCollection controls)
+        {
+            foreach (Control c in controls)
+            {
+                if (c is MenuStrip || c is StatusStrip || c is ToolStrip)
+                {
+                    c.BackColor = BgPanel;
+                    c.ForeColor = TextLight;
+                    continue;
+                }
+
+                c.BackColor = BgPanel;
+                c.ForeColor = TextLight;
+
+                if (c is Button b)
+                {
+                    b.FlatStyle = FlatStyle.Flat;
+                    b.FlatAppearance.BorderColor = Accent;
+                    b.BackColor = Color.FromArgb(44, 48, 70);
+                    b.ForeColor = TextLight;
+                    b.Cursor = Cursors.Hand;
+                }
+                else if (c is TextBox tb)
+                {
+                    tb.BackColor = BgInput;
+                    tb.ForeColor = TextLight;
+                    tb.BorderStyle = BorderStyle.FixedSingle;
+                }
+                else if (c is RichTextBox rtb)
+                {
+                    rtb.BackColor = Color.FromArgb(18, 20, 30);
+                    rtb.ForeColor = TextLight;
+                }
+                else if (c is ListBox lb)
+                {
+                    lb.BackColor = Color.FromArgb(28, 31, 45);
+                    lb.ForeColor = TextLight;
+                }
+                else if (c is CheckedListBox clb)
+                {
+                    clb.BackColor = Color.FromArgb(28, 31, 45);
+                    clb.ForeColor = TextLight;
+                }
+                else if (c is ComboBox cb)
+                {
+                    cb.BackColor = BgInput;
+                    cb.ForeColor = TextLight;
+                    cb.FlatStyle = FlatStyle.Flat;
+                }
+                else if (c is TabControl tc)
+                {
+                    tc.Appearance = TabAppearance.Normal;
+                }
+
+                if (c.HasChildren)
+                    ApplyThemeRecursive(c.Controls);
+            }
         }
 
         //file sizes
@@ -176,6 +312,18 @@ namespace ThermoDust
             pictureBox4.ImageLocation = GetPath() + "\\images\\cactus86.png";
             comboBox1.SelectedIndex = 1;
             cleanImages();
+
+            // Apply dark theme
+            ApplyTheme();
+
+            // Auto-detect tool paths on first run
+            if (string.IsNullOrEmpty(Properties.Settings.Default.MSFraggerJarPath))
+                DetectDefaultPaths();
+
+            // Warn if MSFragger still not configured
+            ValidatePaths();
+
+            this.Text = "QCactus — Proteomics QC";
         }
 
         //Standard deviation set + default handling
@@ -2068,9 +2216,7 @@ try
         //DEV, you'll need to create a folder for all the nice extras needed like jdk and msfragger.jar and a file for msfragger params
         // Example below of how I called msfragger from C#
         
-        public string devfragparams = "C:\\Users\\DwightZ\\Documents\\QCactus_FILES\\fragger.params";
-        public string devfragcall = "-Xmx6G -jar C:\\Users\\DwightZ\\Documents\\QCactus_FILES\\MSFragger-3.8.jar";
-        public string devjavalocation = @"C:\Users\DwightZ\Documents\QCactus_FILES\jdk-20.0.2\bin\java.exe";
+        // MSFragger paths now come from Tools → Settings (Properties.Settings.Default)
 
 
 
@@ -2083,16 +2229,22 @@ try
             //sudo java -Xmx32g - jar MSFragger - 3.8.jar fragger.params 2023_Sample_205.raw
             List<string> exfiles = new List<string>();
             List<string> fragtimes = new List<string>();
-            string javalocation = "";
-            string msfraggerfiles = "";
-            string msfraggerparams = devfragparams;
-            string msfraggercall = devfragcall;
-            javalocation = devjavalocation;
+            // Load paths from settings
+            string javalocation    = Properties.Settings.Default.JavaPath;
+            string msfraggerparams = Properties.Settings.Default.FraggerParamsPath;
+            string msfraggercall   = $"-Xmx6G -jar \"{Properties.Settings.Default.MSFraggerJarPath}\"";
+            string msfraggerfiles  = "";
 
-            //marco setting
-            msfraggerparams = marcofragparams;
-            msfraggercall = marcofragcall;
-            javalocation = marcojavalocation;
+            // Guard: prompt user to configure if paths are missing
+            if (string.IsNullOrEmpty(javalocation) ||
+                string.IsNullOrEmpty(Properties.Settings.Default.MSFraggerJarPath) ||
+                !File.Exists(Properties.Settings.Default.MSFraggerJarPath))
+            {
+                MessageBox.Show(
+                    "MSFragger is not configured.\n\nOpen Tools → Settings and set the Java executable and MSFragger JAR path.",
+                    "Configuration Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             string finalcall = "";
             peptide_count.Clear();
@@ -2158,7 +2310,16 @@ try
                 File.Delete(xml_path);
                 File.Delete(mzml_path);
 
-                string newpath = System.IO.Path.Combine("C:\\Temp\\", System.IO.Path.GetFileNameWithoutExtension(pin_path) + "_" + DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + System.IO.Path.GetExtension(pin_path));
+                string outDir = Properties.Settings.Default.OutputDirectory;
+                if (string.IsNullOrEmpty(outDir))
+                    outDir = Path.Combine(
+                        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                        "QCactus");
+                Directory.CreateDirectory(outDir);
+                string newpath = Path.Combine(outDir,
+                    Path.GetFileNameWithoutExtension(pin_path) + "_" +
+                    DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") +
+                    Path.GetExtension(pin_path));
                 File.Move(pin_path, newpath);
 
 
