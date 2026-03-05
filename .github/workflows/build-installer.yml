@@ -1,0 +1,92 @@
+name: Build Installer
+
+on:
+  push:
+    tags:
+      - "v*"           # triggers on v1.0, v1.1.0, etc.
+  workflow_dispatch:   # allows manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write      # needed to create releases and upload assets
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      # ── 1. Checkout ───────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── 2. .NET 6 SDK ─────────────────────────────────────────────────────
+      - name: Setup .NET 6
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "6.0.x"
+
+      # ── 3. Restore NuGet packages ─────────────────────────────────────────
+      - name: Restore dependencies
+        run: dotnet restore ThermoDust/ThermoDust.csproj
+
+      # ── 4. Publish (self-contained, win-x64) ──────────────────────────────
+      - name: Publish
+        run: |
+          dotnet publish ThermoDust/ThermoDust.csproj `
+            -c Release `
+            -r win-x64 `
+            --self-contained true `
+            -p:PublishReadyToRun=true `
+            -o publish
+
+      # ── 5. Copy images into publish output ────────────────────────────────
+      - name: Copy images
+        run: |
+          New-Item -ItemType Directory -Force -Path publish\images | Out-Null
+          Copy-Item -Path ThermoDust\images\* -Destination publish\images\ -Recurse
+
+      # ── 6. Install Inno Setup ─────────────────────────────────────────────
+      - name: Install Inno Setup
+        run: choco install innosetup --no-progress -y
+
+      # ── 7. Compile installer ──────────────────────────────────────────────
+      - name: Compile installer
+        run: |
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer\QCactus.iss
+        shell: pwsh
+
+      # ── 8. Upload installer as artifact (available on every run) ──────────
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: QCactus_Setup
+          path: installer\Output\QCactus_Setup.exe
+          if-no-files-found: error
+
+      # ── 9. Create GitHub Release (only on version tags) ───────────────────
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "QCactus ${{ github.ref_name }}"
+          body: |
+            ## QCactus ${{ github.ref_name }}
+
+            ### Installation
+            1. Download `QCactus_Setup.exe` below
+            2. Run the installer (no admin rights required)
+            3. Launch QCactus from the Start Menu or Desktop shortcut
+            4. On first launch, paths are auto-detected. If MSFragger isn't found, open **Tools → Settings**
+
+            ### Requirements
+            - Windows 10/11 (64-bit)
+            - Java (OpenJDK 17+) — required for the MSFragger peptide search step
+              - Download: https://openjdk.org/
+              - After installing, run `java -version` in a terminal to confirm it's on your PATH
+
+            ### What's included
+            - Self-contained .NET 6 app (no separate .NET runtime needed)
+            - MSFragger 3.8 + fragger.params + human FASTA database
+            - Thermo Fisher & Bruker DLLs
+          files: installer\Output\QCactus_Setup.exe
+          draft: false
+          prerelease: false

@@ -9,6 +9,7 @@
 ### Option A — Installer (recommended)
 
 1. Download **`QCactus_Setup.exe`** from the [Releases](../../releases) page
+   > *(New releases are built automatically by GitHub Actions when a version tag is pushed. You can also grab the latest build from the [Actions tab](../../actions) → most recent run → `QCactus_Setup` artifact.)*
 2. Run the installer — no admin rights required
 3. Launch QCactus from the Start Menu or Desktop shortcut
 4. On first launch, QCactus will auto-detect bundled tools. If MSFragger isn't found, open **Tools → Settings** to configure paths
