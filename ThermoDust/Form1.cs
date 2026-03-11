@@ -57,10 +57,38 @@ namespace ThermoDust
         private StatusStrip  _statusStrip  = null!;
         private ToolStripStatusLabel _statusLabel = null!;
 
+        // ── Service instances for refactored architecture ──────────────
+        private DataModel _dataModel = null!;
+        private AnalysisEngine _analysisEngine = null!;
+        private PlottingService _plottingService = null!;
+        private PDFReportService _pdfReportService = null!;
+
         public Form1()
         {
             InitializeComponent();
             SetupMenuAndStatusBar();
+            InitializeServices();
+        }
+
+        /// <summary>
+        /// Initializes the service layer for data processing, analysis, and reporting.
+        /// </summary>
+        private void InitializeServices()
+        {
+            _dataModel = new DataModel();
+            _analysisEngine = new AnalysisEngine(_dataModel);
+            _plottingService = new PlottingService(_dataModel, GetOutputDirectory());
+            _pdfReportService = new PDFReportService(GetOutputDirectory());
+        }
+
+        /// <summary>
+        /// Gets the output directory for reports and images.
+        /// </summary>
+        private string GetOutputDirectory()
+        {
+            return Properties.Settings.Default.OutputDirectory ?? Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "QCactus");
         }
 
         // ── Menu + status bar setup ──────────────────────────────────────
@@ -188,122 +216,102 @@ namespace ThermoDust
             }
         }
 
-        //file sizes
-        // - - globals for refreshing charts / updating statistics
-        // - - holding the file sizes
-        public List<double> bfs = new List<double>();
-        public List<double> rfs = new List<double>();
-        public List<double> hfs = new List<double>();
+        // ── Data Properties (Refactored to use DataModel) ──────────────────
+        // NOTE: All data fields have been moved to DataModel for better separation of concerns.
+        // These properties provide backward compatibility with existing code.
 
-        //file names
-        // - - globals for file names
-        // - - 
-        public List<string> rfns = new List<string>();
-        public List<string> bfns = new List<string>();
-        public List<string> hfns = new List<string>();
-        public List<string> failedfiles = new List<string>();
-        public List<string> idsfiles = new List<string>();
+        public List<double> bfs { get => _dataModel.BlankFileSizes; set => _dataModel.BlankFileSizes = value; }
+        public List<double> rfs { get => _dataModel.RealFileSizes; set => _dataModel.RealFileSizes = value; }
+        public List<double> hfs { get => _dataModel.HelaFileSizes; set => _dataModel.HelaFileSizes = value; }
 
-        //time stamps
-        // - - globals for time stamps
-        // - - 
-        public List<string> times = new List<string>();
-        public List<string> btimes = new List<string>();
-        public List<string> htimes = new List<string>();
-        public List<string> fragcombotimes = new List<string>();
+        public List<string> rfns { get => _dataModel.RealFileNames; set => _dataModel.RealFileNames = value; }
+        public List<string> bfns { get => _dataModel.BlankFileNames; set => _dataModel.BlankFileNames = value; }
+        public List<string> hfns { get => _dataModel.HelaFileNames; set => _dataModel.HelaFileNames = value; }
+        public List<string> failedfiles { get => _dataModel.FailedFiles; set => _dataModel.FailedFiles = value; }
+        public List<string> idsfiles { get => _dataModel.IdFiles; set => _dataModel.IdFiles = value; }
 
-        public List<string> bpfnames = new List<string>();
-        public List<string> msfnames = new List<string>();
+        public List<string> times { get => _dataModel.RealTimes; set => _dataModel.RealTimes = value; }
+        public List<string> btimes { get => _dataModel.BlankTimes; set => _dataModel.BlankTimes = value; }
+        public List<string> htimes { get => _dataModel.HelaTimes; set => _dataModel.HelaTimes = value; }
+        public List<string> fragcombotimes { get => _dataModel.FragCombinedTimes; set => _dataModel.FragCombinedTimes = value; }
 
-        //quantitative values
-        // - - globals for quant values
-        // - - 
-        public List<double> median_ms1s = new List<double>();
-        public List<double> median_ms2s = new List<double>();
-        public List<double> max_basepeaks = new List<double>();
+        public List<string> bpfnames { get => _dataModel.BasePeakFileNames; set => _dataModel.BasePeakFileNames = value; }
+        public List<string> msfnames { get => _dataModel.MSFraggerFileNames; set => _dataModel.MSFraggerFileNames = value; }
 
-        //setting for standard deviations for thresholds
-        // - - global
-        public double deviations = 2;
+        public List<double> median_ms1s { get => _dataModel.MedianMS1Values; set => _dataModel.MedianMS1Values = value; }
+        public List<double> median_ms2s { get => _dataModel.MedianMS2Values; set => _dataModel.MedianMS2Values = value; }
+        public List<double> max_basepeaks { get => _dataModel.MaxBasePeaks; set => _dataModel.MaxBasePeaks = value; }
 
-        //setting if data has been loaded into app
-        // - - global
-        public bool dataloaded = false;
+        public double deviations { get => _dataModel.StandardDeviations; set => _dataModel.StandardDeviations = value; }
+        public bool dataloaded { get => _dataModel.IsDataLoaded; set => _dataModel.IsDataLoaded = value; }
 
-        // - - global
-        public List<double> protein_count = new List<double>();
-        public List<double> peptide_count = new List<double>();
+        public List<double> protein_count { get => _dataModel.ProteinCounts; set => _dataModel.ProteinCounts = value; }
+        public List<double> peptide_count { get => _dataModel.PeptideCounts; set => _dataModel.PeptideCounts = value; }
 
-        //custom thresholds for charts, set by user
-        // - - global
-        public double custom_UB_FileSize = 0;
-        public double custom_LB_FileSize = 0;
-        public double custom_UB_MS1 = 0;
-        public double custom_LB_MS1 = 0;
-        public double custom_UB_MS2 = 0;
-        public double custom_LB_MS2 = 0;
-        public double custom_UB_BP = 0;
-        public double custom_LB_BP = 0;
+        public double custom_UB_FileSize { get => _dataModel.CustomUpperBoundFileSize; set => _dataModel.CustomUpperBoundFileSize = value; }
+        public double custom_LB_FileSize { get => _dataModel.CustomLowerBoundFileSize; set => _dataModel.CustomLowerBoundFileSize = value; }
+        public double custom_UB_MS1 { get => _dataModel.CustomUpperBoundMS1; set => _dataModel.CustomUpperBoundMS1 = value; }
+        public double custom_LB_MS1 { get => _dataModel.CustomLowerBoundMS1; set => _dataModel.CustomLowerBoundMS1 = value; }
+        public double custom_UB_MS2 { get => _dataModel.CustomUpperBoundMS2; set => _dataModel.CustomUpperBoundMS2 = value; }
+        public double custom_LB_MS2 { get => _dataModel.CustomLowerBoundMS2; set => _dataModel.CustomLowerBoundMS2 = value; }
+        public double custom_UB_BP { get => _dataModel.CustomUpperBoundBasePeak; set => _dataModel.CustomUpperBoundBasePeak = value; }
+        public double custom_LB_BP { get => _dataModel.CustomLowerBoundBasePeak; set => _dataModel.CustomLowerBoundBasePeak = value; }
 
-        //a bunch of objects to help workaround some hovering on points
-        // - - the mouse hover works but more difficult to work with and should be rewritten
-        // - - TODO: consolidate scottplot objects if possible
-        // - - NOTE: Trickier to get closest point highlighted when more than one series
-        public ScottPlot.Plottable.ScatterPlot BPScatterPlot = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.ScatterPlot ScanScatterPlot = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.ScatterPlot ScanScatterPlot2 = new ScottPlot.Plottable.ScatterPlot(null, null);
+        // ScottPlot references  (from DataModel)
+        public ScottPlot.Plottable.ScatterPlot BPScatterPlot { get => _dataModel.BasepeakScatter; set => _dataModel.BasepeakScatter = value; }
+        public ScottPlot.Plottable.ScatterPlot ScanScatterPlot { get => _dataModel.ScanCountScatter; set => _dataModel.ScanCountScatter = value; }
+        public ScottPlot.Plottable.ScatterPlot ScanScatterPlot2 { get => _dataModel.ScanCountScatter2; set => _dataModel.ScanCountScatter2 = value; }
 
-        public ScottPlot.Plottable.ScatterPlot MyScatterPlot = new ScottPlot.Plottable.ScatterPlot(null,null);
-        public ScottPlot.Plottable.ScatterPlot MyScatterPlot2 = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.ScatterPlot MyScatterPlot3 = new ScottPlot.Plottable.ScatterPlot(null, null);
+        public ScottPlot.Plottable.ScatterPlot MyScatterPlot { get => _dataModel.IntensityScatter; set => _dataModel.IntensityScatter = value; }
+        public ScottPlot.Plottable.ScatterPlot MyScatterPlot2 { get => _dataModel.IntensityScatter2; set => _dataModel.IntensityScatter2 = value; }
+        public ScottPlot.Plottable.ScatterPlot MyScatterPlot3 { get => _dataModel.IntensityScatter3; set => _dataModel.IntensityScatter3 = value; }
 
+        public ScottPlot.Plottable.MarkerPlot HighlightedPointScan { get => _dataModel.HighlightedScanCount; set => _dataModel.HighlightedScanCount = value; }
+        public ScottPlot.Plottable.MarkerPlot HighlightedPointScan2 { get => _dataModel.HighlightedScanCount2; set => _dataModel.HighlightedScanCount2 = value; }
+        public ScottPlot.Plottable.MarkerPlot HighlightedPointBP { get => _dataModel.HighlightedBasePeak; set => _dataModel.HighlightedBasePeak = value; }
+        public ScottPlot.Plottable.MarkerPlot HighlightedPoint { get => _dataModel.HighlightedIntensity; set => _dataModel.HighlightedIntensity = value; }
 
-        public ScottPlot.Plottable.MarkerPlot HighlightedPointScan = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot HighlightedPointScan2 = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot HighlightedPointBP = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot HighlightedPoint = new ScottPlot.Plottable.MarkerPlot();
+        public ScottPlot.Plottable.MarkerPlot HighlightedPointPro { get => _dataModel.HighlightedProtein; set => _dataModel.HighlightedProtein = value; }
+        public ScottPlot.Plottable.MarkerPlot HighlightedPointPep { get => _dataModel.HighlightedPeptide; set => _dataModel.HighlightedPeptide = value; }
 
-        public ScottPlot.Plottable.MarkerPlot HighlightedPointPro = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot HighlightedPointPep = new ScottPlot.Plottable.MarkerPlot();
+        public int LastHighlightedIndex { get => _dataModel.LastHighlightedIndex; set => _dataModel.LastHighlightedIndex = value; }
+        public int LastHighlightedIndex2 { get => _dataModel.LastHighlightedIndex2; set => _dataModel.LastHighlightedIndex2 = value; }
 
-        public int LastHighlightedIndex = -1;
-        public int LastHighlightedIndex2 = -1;
+        // Group-specific plot references
+        public ScottPlot.Plottable.ScatterPlot scatFPlotA { get => _dataModel.FileSizeScatterGroupA; set => _dataModel.FileSizeScatterGroupA = value; }
+        public ScottPlot.Plottable.ScatterPlot scatFPlotB { get => _dataModel.FileSizeScatterGroupB; set => _dataModel.FileSizeScatterGroupB = value; }
+        public ScottPlot.Plottable.ScatterPlot scatFPlotC { get => _dataModel.FileSizeScatterGroupC; set => _dataModel.FileSizeScatterGroupC = value; }
+        public ScottPlot.Plottable.ScatterPlot scatFPlotD { get => _dataModel.FileSizeScatterGroupD; set => _dataModel.FileSizeScatterGroupD = value; }
+        public ScottPlot.Plottable.MarkerPlot scatFhpA { get => _dataModel.HighlightedFileSizeGroupA; set => _dataModel.HighlightedFileSizeGroupA = value; }
+        public ScottPlot.Plottable.MarkerPlot scatFhpB { get => _dataModel.HighlightedFileSizeGroupB; set => _dataModel.HighlightedFileSizeGroupB = value; }
+        public ScottPlot.Plottable.MarkerPlot scatFhpC { get => _dataModel.HighlightedFileSizeGroupC; set => _dataModel.HighlightedFileSizeGroupC = value; }
+        public ScottPlot.Plottable.MarkerPlot scatFhpD { get => _dataModel.HighlightedFileSizeGroupD; set => _dataModel.HighlightedFileSizeGroupD = value; }
 
-        //helpers and placeholders for the odd hover bugs in scottplot - I could reduce this but get it working first
-        public ScottPlot.Plottable.ScatterPlot scatFPlotA = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.ScatterPlot scatFPlotB = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.ScatterPlot scatFPlotC = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.ScatterPlot scatFPlotD = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.MarkerPlot scatFhpA = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot scatFhpB = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot scatFhpC = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot scatFhpD = new ScottPlot.Plottable.MarkerPlot();
+        public ScottPlot.Plottable.ScatterPlot scatIPlotA { get => _dataModel.IntensityScatterGroupA; set => _dataModel.IntensityScatterGroupA = value; }
+        public ScottPlot.Plottable.ScatterPlot scatIPlotB { get => _dataModel.IntensityScatterGroupB; set => _dataModel.IntensityScatterGroupB = value; }
+        public ScottPlot.Plottable.ScatterPlot scatIPlotC { get => _dataModel.IntensityScatterGroupC; set => _dataModel.IntensityScatterGroupC = value; }
+        public ScottPlot.Plottable.ScatterPlot scatIPlotD { get => _dataModel.IntensityScatterGroupD; set => _dataModel.IntensityScatterGroupD = value; }
+        public ScottPlot.Plottable.ScatterPlot scatIPlotA2 { get => _dataModel.IntensityScatterGroupA2; set => _dataModel.IntensityScatterGroupA2 = value; }
+        public ScottPlot.Plottable.ScatterPlot scatIPlotB2 { get => _dataModel.IntensityScatterGroupB2; set => _dataModel.IntensityScatterGroupB2 = value; }
+        public ScottPlot.Plottable.ScatterPlot scatIPlotC2 { get => _dataModel.IntensityScatterGroupC2; set => _dataModel.IntensityScatterGroupC2 = value; }
+        public ScottPlot.Plottable.ScatterPlot scatIPlotD2 { get => _dataModel.IntensityScatterGroupD2; set => _dataModel.IntensityScatterGroupD2 = value; }
+        public ScottPlot.Plottable.MarkerPlot scatIhpA { get => _dataModel.HighlightedIntensityGroupA; set => _dataModel.HighlightedIntensityGroupA = value; }
+        public ScottPlot.Plottable.MarkerPlot scatIhpB { get => _dataModel.HighlightedIntensityGroupB; set => _dataModel.HighlightedIntensityGroupB = value; }
+        public ScottPlot.Plottable.MarkerPlot scatIhpC { get => _dataModel.HighlightedIntensityGroupC; set => _dataModel.HighlightedIntensityGroupC = value; }
+        public ScottPlot.Plottable.MarkerPlot scatIhpD { get => _dataModel.HighlightedIntensityGroupD; set => _dataModel.HighlightedIntensityGroupD = value; }
+        public ScottPlot.Plottable.MarkerPlot scatIhpA2 { get => _dataModel.HighlightedIntensityGroupA2; set => _dataModel.HighlightedIntensityGroupA2 = value; }
+        public ScottPlot.Plottable.MarkerPlot scatIhpB2 { get => _dataModel.HighlightedIntensityGroupB2; set => _dataModel.HighlightedIntensityGroupB2 = value; }
+        public ScottPlot.Plottable.MarkerPlot scatIhpC2 { get => _dataModel.HighlightedIntensityGroupC2; set => _dataModel.HighlightedIntensityGroupC2 = value; }
+        public ScottPlot.Plottable.MarkerPlot scatIhpD2 { get => _dataModel.HighlightedIntensityGroupD2; set => _dataModel.HighlightedIntensityGroupD2 = value; }
 
-        public ScottPlot.Plottable.ScatterPlot scatIPlotA = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.ScatterPlot scatIPlotB = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.ScatterPlot scatIPlotC = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.ScatterPlot scatIPlotD = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.ScatterPlot scatIPlotA2 = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.ScatterPlot scatIPlotB2 = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.ScatterPlot scatIPlotC2 = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.ScatterPlot scatIPlotD2 = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.MarkerPlot scatIhpA = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot scatIhpB = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot scatIhpC = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot scatIhpD = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot scatIhpA2 = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot scatIhpB2 = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot scatIhpC2 = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot scatIhpD2 = new ScottPlot.Plottable.MarkerPlot();
-
-        public ScottPlot.Plottable.ScatterPlot scatBPlotA = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.ScatterPlot scatBPlotB = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.ScatterPlot scatBPlotC = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.ScatterPlot scatBPlotD = new ScottPlot.Plottable.ScatterPlot(null, null);
-        public ScottPlot.Plottable.MarkerPlot scatBhpA = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot scatBhpB = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot scatBhpC = new ScottPlot.Plottable.MarkerPlot();
-        public ScottPlot.Plottable.MarkerPlot scatBhpD = new ScottPlot.Plottable.MarkerPlot();
+        public ScottPlot.Plottable.ScatterPlot scatBPlotA { get => _dataModel.BasePeakScatterGroupA; set => _dataModel.BasePeakScatterGroupA = value; }
+        public ScottPlot.Plottable.ScatterPlot scatBPlotB { get => _dataModel.BasePeakScatterGroupB; set => _dataModel.BasePeakScatterGroupB = value; }
+        public ScottPlot.Plottable.ScatterPlot scatBPlotC { get => _dataModel.BasePeakScatterGroupC; set => _dataModel.BasePeakScatterGroupC = value; }
+        public ScottPlot.Plottable.ScatterPlot scatBPlotD { get => _dataModel.BasePeakScatterGroupD; set => _dataModel.BasePeakScatterGroupD = value; }
+        public ScottPlot.Plottable.MarkerPlot scatBhpA { get => _dataModel.HighlightedBasePeakGroupA; set => _dataModel.HighlightedBasePeakGroupA = value; }
+        public ScottPlot.Plottable.MarkerPlot scatBhpB { get => _dataModel.HighlightedBasePeakGroupB; set => _dataModel.HighlightedBasePeakGroupB = value; }
+        public ScottPlot.Plottable.MarkerPlot scatBhpC { get => _dataModel.HighlightedBasePeakGroupC; set => _dataModel.HighlightedBasePeakGroupC = value; }
+        public ScottPlot.Plottable.MarkerPlot scatBhpD { get => _dataModel.HighlightedBasePeakGroupD; set => _dataModel.HighlightedBasePeakGroupD = value; }
 
         //Load up the form with some helpful presents
         // - - 
@@ -329,26 +337,22 @@ namespace ThermoDust
         //Standard deviation set + default handling
         // - - if the combo box 1 changes, set deviations and call gui update
         private void setDeviations()
-        {   
-            deviations = comboBox1.SelectedIndex+1;
-            if (deviations == 4)
+        {
+            _dataModel.StandardDeviations = comboBox1.SelectedIndex + 1;
+            if (_dataModel.StandardDeviations == 4)
             {
-                deviations = 2;
+                _dataModel.StandardDeviations = 2;
             }
-            
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
-                setDeviations();
-            
-            
-            if (dataloaded == true)
+            setDeviations();
+
+            if (_dataModel.IsDataLoaded)
             {
                 guiUpdate();
             }
-
         }
 
 
