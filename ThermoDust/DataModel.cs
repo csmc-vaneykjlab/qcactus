@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ScottPlot;
+using ScottPlot.Plottable;
 
 namespace ThermoDust
 {
