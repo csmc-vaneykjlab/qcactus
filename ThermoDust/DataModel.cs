@@ -60,80 +60,80 @@ namespace ThermoDust
         // ── ScottPlot Objects for Interactive Charts ────────────────
 
         // Base Peak Charts
-        public Plottable.ScatterPlot BasepeakScatter { get; set; } = new(null, null);
-        public Plottable.MarkerPlot HighlightedBasePeak { get; set; } = new();
+        public ScatterPlot BasepeakScatter { get; set; } = new(null, null);
+        public MarkerPlot HighlightedBasePeak { get; set; } = new();
 
         // Scan Count Charts
-        public Plottable.ScatterPlot ScanCountScatter { get; set; } = new(null, null);
-        public Plottable.ScatterPlot ScanCountScatter2 { get; set; } = new(null, null);
-        public Plottable.MarkerPlot HighlightedScanCount { get; set; } = new();
-        public Plottable.MarkerPlot HighlightedScanCount2 { get; set; } = new();
+        public ScatterPlot ScanCountScatter { get; set; } = new(null, null);
+        public ScatterPlot ScanCountScatter2 { get; set; } = new(null, null);
+        public MarkerPlot HighlightedScanCount { get; set; } = new();
+        public MarkerPlot HighlightedScanCount2 { get; set; } = new();
 
         // Intensity Charts
-        public Plottable.ScatterPlot IntensityScatter { get; set; } = new(null, null);
-        public Plottable.ScatterPlot IntensityScatter2 { get; set; } = new(null, null);
-        public Plottable.ScatterPlot IntensityScatter3 { get; set; } = new(null, null);
-        public Plottable.MarkerPlot HighlightedIntensity { get; set; } = new();
+        public ScatterPlot IntensityScatter { get; set; } = new(null, null);
+        public ScatterPlot IntensityScatter2 { get; set; } = new(null, null);
+        public ScatterPlot IntensityScatter3 { get; set; } = new(null, null);
+        public MarkerPlot HighlightedIntensity { get; set; } = new();
 
         // File Size Charts - Group A
-        public Plottable.ScatterPlot FileSizeScatterGroupA { get; set; } = new(null, null);
-        public Plottable.MarkerPlot HighlightedFileSizeGroupA { get; set; } = new();
+        public ScatterPlot FileSizeScatterGroupA { get; set; } = new(null, null);
+        public MarkerPlot HighlightedFileSizeGroupA { get; set; } = new();
 
         // File Size Charts - Group B
-        public Plottable.ScatterPlot FileSizeScatterGroupB { get; set; } = new(null, null);
-        public Plottable.MarkerPlot HighlightedFileSizeGroupB { get; set; } = new();
+        public ScatterPlot FileSizeScatterGroupB { get; set; } = new(null, null);
+        public MarkerPlot HighlightedFileSizeGroupB { get; set; } = new();
 
         // File Size Charts - Group C
-        public Plottable.ScatterPlot FileSizeScatterGroupC { get; set; } = new(null, null);
-        public Plottable.MarkerPlot HighlightedFileSizeGroupC { get; set; } = new();
+        public ScatterPlot FileSizeScatterGroupC { get; set; } = new(null, null);
+        public MarkerPlot HighlightedFileSizeGroupC { get; set; } = new();
 
         // File Size Charts - Group D
-        public Plottable.ScatterPlot FileSizeScatterGroupD { get; set; } = new(null, null);
-        public Plottable.MarkerPlot HighlightedFileSizeGroupD { get; set; } = new();
+        public ScatterPlot FileSizeScatterGroupD { get; set; } = new(null, null);
+        public MarkerPlot HighlightedFileSizeGroupD { get; set; } = new();
 
         // Intensity Charts - Group A
-        public Plottable.ScatterPlot IntensityScatterGroupA { get; set; } = new(null, null);
-        public Plottable.ScatterPlot IntensityScatterGroupA2 { get; set; } = new(null, null);
-        public Plottable.MarkerPlot HighlightedIntensityGroupA { get; set; } = new();
-        public Plottable.MarkerPlot HighlightedIntensityGroupA2 { get; set; } = new();
+        public ScatterPlot IntensityScatterGroupA { get; set; } = new(null, null);
+        public ScatterPlot IntensityScatterGroupA2 { get; set; } = new(null, null);
+        public MarkerPlot HighlightedIntensityGroupA { get; set; } = new();
+        public MarkerPlot HighlightedIntensityGroupA2 { get; set; } = new();
 
         // Intensity Charts - Group B
-        public Plottable.ScatterPlot IntensityScatterGroupB { get; set; } = new(null, null);
-        public Plottable.ScatterPlot IntensityScatterGroupB2 { get; set; } = new(null, null);
-        public Plottable.MarkerPlot HighlightedIntensityGroupB { get; set; } = new();
-        public Plottable.MarkerPlot HighlightedIntensityGroupB2 { get; set; } = new();
+        public ScatterPlot IntensityScatterGroupB { get; set; } = new(null, null);
+        public ScatterPlot IntensityScatterGroupB2 { get; set; } = new(null, null);
+        public MarkerPlot HighlightedIntensityGroupB { get; set; } = new();
+        public MarkerPlot HighlightedIntensityGroupB2 { get; set; } = new();
 
         // Intensity Charts - Group C
-        public Plottable.ScatterPlot IntensityScatterGroupC { get; set; } = new(null, null);
-        public Plottable.ScatterPlot IntensityScatterGroupC2 { get; set; } = new(null, null);
-        public Plottable.MarkerPlot HighlightedIntensityGroupC { get; set; } = new();
-        public Plottable.MarkerPlot HighlightedIntensityGroupC2 { get; set; } = new();
+        public ScatterPlot IntensityScatterGroupC { get; set; } = new(null, null);
+        public ScatterPlot IntensityScatterGroupC2 { get; set; } = new(null, null);
+        public MarkerPlot HighlightedIntensityGroupC { get; set; } = new();
+        public MarkerPlot HighlightedIntensityGroupC2 { get; set; } = new();
 
         // Intensity Charts - Group D
-        public Plottable.ScatterPlot IntensityScatterGroupD { get; set; } = new(null, null);
-        public Plottable.ScatterPlot IntensityScatterGroupD2 { get; set; } = new(null, null);
-        public Plottable.MarkerPlot HighlightedIntensityGroupD { get; set; } = new();
-        public Plottable.MarkerPlot HighlightedIntensityGroupD2 { get; set; } = new();
+        public ScatterPlot IntensityScatterGroupD { get; set; } = new(null, null);
+        public ScatterPlot IntensityScatterGroupD2 { get; set; } = new(null, null);
+        public MarkerPlot HighlightedIntensityGroupD { get; set; } = new();
+        public MarkerPlot HighlightedIntensityGroupD2 { get; set; } = new();
 
         // Base Peak Charts - Group A
-        public Plottable.ScatterPlot BasePeakScatterGroupA { get; set; } = new(null, null);
-        public Plottable.MarkerPlot HighlightedBasePeakGroupA { get; set; } = new();
+        public ScatterPlot BasePeakScatterGroupA { get; set; } = new(null, null);
+        public MarkerPlot HighlightedBasePeakGroupA { get; set; } = new();
 
         // Base Peak Charts - Group B
-        public Plottable.ScatterPlot BasePeakScatterGroupB { get; set; } = new(null, null);
-        public Plottable.MarkerPlot HighlightedBasePeakGroupB { get; set; } = new();
+        public ScatterPlot BasePeakScatterGroupB { get; set; } = new(null, null);
+        public MarkerPlot HighlightedBasePeakGroupB { get; set; } = new();
 
         // Base Peak Charts - Group C
-        public Plottable.ScatterPlot BasePeakScatterGroupC { get; set; } = new(null, null);
-        public Plottable.MarkerPlot HighlightedBasePeakGroupC { get; set; } = new();
+        public ScatterPlot BasePeakScatterGroupC { get; set; } = new(null, null);
+        public MarkerPlot HighlightedBasePeakGroupC { get; set; } = new();
 
         // Base Peak Charts - Group D
-        public Plottable.ScatterPlot BasePeakScatterGroupD { get; set; } = new(null, null);
-        public Plottable.MarkerPlot HighlightedBasePeakGroupD { get; set; } = new();
+        public ScatterPlot BasePeakScatterGroupD { get; set; } = new(null, null);
+        public MarkerPlot HighlightedBasePeakGroupD { get; set; } = new();
 
         // Protein & Peptide Charts
-        public Plottable.MarkerPlot HighlightedProtein { get; set; } = new();
-        public Plottable.MarkerPlot HighlightedPeptide { get; set; } = new();
+        public MarkerPlot HighlightedProtein { get; set; } = new();
+        public MarkerPlot HighlightedPeptide { get; set; } = new();
 
         // ── Chart State Tracking ─────────────────────────────────────
         public int LastHighlightedIndex { get; set; } = -1;
